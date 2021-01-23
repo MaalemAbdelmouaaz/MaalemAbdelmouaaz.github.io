@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+    <head>      
+        <title> 
+            2048 
+        </title> 
+        <link rel = "icon" href =  
+"https://www.pngkey.com/png/detail/768-7684680_file-2048-logo-svg-2048-icon.png" 
+        type = "image/x-icon"> 
+        <style type="text/css">
+          h1 {color:#696969; font-weight:bold;font-size:70px; font-family: Tahoma, Verdana, sans-serif;}
+          form{
+            font-family: Tahoma, Verdana, sans-serif;
+            width: 500px;
+            margin: auto;
+            background: #faf8ef;
+            padding: 30px;
+          }
+          table{float:right; background-color:#776e65;}
+        </style>
+    </head> 
+      
+
+
+
+    <body bgcolor="#faf8ef"> 
+      <form>
+         <table>
+          <tr>
+            <th>SCORE</th>
+            <th>BEST</th>
+          </tr>
+          <tr>
+            <th>0</th>
+            <th>0</th>
+          </tr>
+        </table>
+        <h1> 
+            2048 
+        </h1> 
+         
+          Join the tiles, get to 2048!<br /> <a href="#how"> How to play → </a>
+
+        <p><a name="how"></a>
+          HOW TO PLAY: Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!
+        <a herf="#play"> Start playing →</a>
+        </p>
+      </form>
+    </body> 
+</html>     
