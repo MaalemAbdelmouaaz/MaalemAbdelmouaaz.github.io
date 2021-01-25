@@ -8,40 +8,61 @@
         <style type="text/css">
           h1 {color:#696969; 
               font-weight:bold;
-              font-size:70px; 
-              font-family: Tahoma, Verdana, sans-serif;}
-          .content{font-family: Tahoma, Verdana, sans-serif;
+              font-size:80px; 
+              font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;}
+          .content{font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
                    width: 500px;
                    margin: auto;
                    background: #faf8ef;
                    top: 50px;
                    left: 800px;}
-          #score{background-color:#b3a9a0;
-                 color: white;
-                 position: absolute;
-                 width: 200px;
-                 top: 40px;
-                 left: 710px;
-                 padding-top: 5px;}
-                 
+          #scorebox{background-color:#b3a9a0;
+                   color: white;
+                   font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
+                   position: absolute;
+                   width: 210px;
+                   top: 40px;
+                   left: 710px;
+                   padding-top: 5px;}
+          #newgame{background-color:#7e6c5c;
+                   color:white ;
+                   font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
+                   font-weight: bold;
+                   position: absolute;
+                   width: 100px;
+                   top: 140px;
+                   left: 800px;
+                   padding: 10px;
+                   text-align: center;}
+          #gamebox{background-color:#b3a9a0;
+                   font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
+                   text-align: center;
+                   border-color: black;
+                   border-width: 10px;
+                   width: 100%;
+                   height: 500px;}
         </style>
     </head> 
 
 
 
     <body bgcolor="#faf8ef"> 
-      <div id="score">
+
+      <div id="scorebox">
         <table style="width:200px;">
           <tr style="color:#e9dfd5;font-size: 12px;">
             <th>SCORE</th>
             <th style="width: 52%;">BEST</th>
           </tr>
-          <tr style="font-size: 26px;">
+          <tr style="font-size: 24px;">
             <th>184</th>
             <th style="width: 52%;">7984</th>
           </tr>
         </table>
-        </div>
+      </div>
+      <p id="newgame">
+        New Game 
+      </p>
       <div class="content">
         <h1> 
             2048 
@@ -49,12 +70,39 @@
         <p>
           Join the tiles, get to 2048!<br /> <a href="#how"> How to play → </a>
         </p>
+        <table id="gamebox">
+          <tr>
+            <th>5</th>
+            <th>6</th>
+            <th>4</th>
+            <th>45</th>
+          </tr>
+          <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>7</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr> 
+        </table>
         <p>
           <a name="how"></a>
           HOW TO PLAY: Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!
         <a herf="#play"> Start playing →</a>
         </p>
       </div>
+
     </body> 
 
 
