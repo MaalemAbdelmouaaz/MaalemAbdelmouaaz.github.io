@@ -11,7 +11,7 @@
               font-size:80px; 
               font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;}
           .content{font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
-                   width: 500px;
+                   max-width: 500px;
                    margin: auto;
                    background: #faf8ef;
                    top: 50px;
@@ -24,6 +24,7 @@
                    top: 40px;
                    left: 710px;
                    padding-top: 5px;}
+                   
           #newgame{background-color:#7e6c5c;
                    color:white ;
                    font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
@@ -34,13 +35,17 @@
                    left: 800px;
                    padding: 10px;
                    text-align: center;}
-          #gamebox{background-color:#b3a9a0;
+          #gamebox{background-color:#cec0b4;
                    font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
                    text-align: center;
-                   border-color: black;
+                   font-size: 50px;
+                   border-color: none;
                    border-width: 10px;
-                   width: 100%;
-                   height: 500px;}
+                   width: 500px;
+                   height: 500px;
+                   border-spacing: 10px;}
+                   
+          
         </style>
     </head> 
 
@@ -70,36 +75,39 @@
         <p>
           Join the tiles, get to 2048!<br /> <a href="#how"> How to play → </a>
         </p>
-        <table id="gamebox">
-          <tr>
-            <th>5</th>
-            <th>6</th>
-            <th>4</th>
-            <th>45</th>
-          </tr>
+        <table id="gamebox" border="2"><a name="play"></a>
           <tr>
             <th>1</th>
+            <th>0</th>
             <th>2</th>
-            <th>7</th>
-            <th></th>
+            <th>4</th>
           </tr>
           <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>2</th>
+            <th>0</th>
+            <th>4</th>
+            <th>8</th>
           </tr>
           <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>4</th>
+            <th>0</th>
+            <th>9</th>
+            <th>6</th>
+          </tr>
+          <tr>
+            <th>8</th>
+            <th>1</th>
+            <th>9</th>
+            <th>2</th>
           </tr> 
         </table>
         <p>
           <a name="how"></a>
           HOW TO PLAY: Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!
-        <a herf="#play"> Start playing →</a>
+          <a herf="#play"> Start playing → </a>
+        </p>
+        <p>
+          You’re playing the original version of 2048. Try out the official apps for iOS and Android! All other versions of this game are derivatives and should be used with caution.
         </p>
       </div>
 
