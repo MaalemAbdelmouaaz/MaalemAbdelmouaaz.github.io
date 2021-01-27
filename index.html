@@ -4,109 +4,169 @@
         <title> 
             2048 
         </title> 
-        <link rel = "icon" href ="https://www.pngkey.com/png/detail/768-7684680_file-2048-logo-svg-2048-icon.png" type = "image/x-icon"> 
+        <link rel = "icon" href ="http://gabrielecirulli.github.io/2048/meta/og_image.png" type = "image/x-icon"> 
         <style type="text/css">
-          body{background-color: #faf8ef;
-               font-family: "Clear Sans","Helvetica Neue",Arial,sans-serif;
-               color: #7a6f6c;}
-          h1 {font-weight:bold;
-              font-size:80px;}
-          .content{font-size: 18px;
-                   max-width: 500px;
-                   margin: auto;
-                   background: #faf8ef;
-                   top: 50px;
-                   left: 800px;}
-          #scorebox{color: white;
-                   text-align: center;
-                   font-weight:bolder;
-                   position: absolute;
-                   width: 210px;
-                   top: 40px;
-                   left: 710px;
-                   padding-top: 5px;
-                   background-color:#b3a396}      
-          #newgame{background-color:#7e6c5c;
-                   color:white ;
-                   font-weight: bold;
-                   position: absolute;
-                   width: 105px;
-                   top: 135px;
-                   left: 800px;
-                   padding: 10px;
-                   text-align: center;}
-          #gamebox{background-color:#b3a9a0;
-                   margin-bottom: 80px;
-                   text-align: center;
-                   font-size: 50px;
-                   width: 500px;
-                   height: 500px;
-                   border-spacing: 13px;}
-          #element{background-color: #d1cbc5;}
-          span{font-weight: bold;}
-          #par{position: relative;
-               bottom: 20px;}
-          a:link{color:#7a6f6c;
-                 font-weight: bolder;}
-          a:visited{color:#7a6f6c;
-                    font-weight: bolder;}}
+           body {
+               background-color: #faf8ef;
+               font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+               font-size: 18px;
+               color: #776e65;   
+           }
+           #pageWrap {
+               width: 500px;
+               margin: 0 auto;
+           }
+           h1 {
+               font-size: 80px;
+               font-weight: bold;
+               margin-top: 42px;
+               margin-bottom: 0px;
+           }
+           p {
+               line-height: 1.5;
+           }
+           span {
+               font-weight: bold;
+               text-decoration-line: underline;
+               text-decoration-style: solid;
+           }
+           .scoreBox {
+               position: absolute;
+               top: 40px;
+               left: 710px;
+               text-align: center;
+               font-weight: bold;
+               width: 212px;
+               height: 57px;
+               display: flex;
+               flex-direction: row;
+               justify-content: space-between;
+           }
+           .score {
+               background-color: #b8a99f;
+               width: 45%;
+               display: flex;
+               flex-direction: column;
+               border-radius: 3px;
+           }
+           .best {
+               background-color: #b8a99f;
+               width: 53%;
+               display: flex;
+               flex-direction: column;
+               border-radius: 3px;
+           }
+           .head {
+               color: #e9dfd5;
+               font-size: 12px;
+               padding-top: 7px;
+           }
+           .val {
+               color: white;
+               font-size: 26px;
+               padding-top: 5px;
+           }
+           .newGameButton {
+               position: absolute;
+               top: 142px;
+               left: 795px;
+               background-color:#8a7766;
+               width: 110px;
+               color: rgb(240, 229, 222);
+               text-align: center;
+               padding: 10px;
+               border-radius: 3px;
+           }
+           .gridBox {
+               margin-top: 35px;
+               margin-bottom: 80px;
+               background-color:#b3a9a0;
+               text-align: center;
+               font-size: 50px;
+               width: 500px;
+               height: 500px;
+               border-radius: 5px;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-evenly;
+           }
+           .gridRow {
+               width: 100%;
+               height: 21%;
+               display: flex;
+               justify-content: space-evenly;
+           }
+           .gridElement {
+               width: 21%;
+               height: 100%;
+               background-color: #cec3b8;
+               border-radius: 3px;
+           }
+           a:link {
+               color:#7a6f6c;
+               font-weight: bolder;
+           }
+           a:visited {
+               color:#7a6f6c;
+               font-weight: bolder;
+           }
         </style>
     </head> 
-    <body> 
-      <table id="scorebox">
-          <tr style="color:#e9dfd5;font-size: 12px;">
-            <th>SCORE</th>
-            <th style="width: 52%;">BEST</th>
-          </tr>
-          <tr style="font-size: 24px;">
-            <td>184</td>
-            <td style="width: 52%;">7984</td>
-          </tr>
-      </table>
-      <p id="newgame"><a name="play"></a>
-        New Game 
-      </p>
-      <div class="content">
-        <h1> 
-            2048 
-        </h1> 
-        <p id="par">
-          Join the tiles, get to <span>2048!</span><br /> <a href="#how"> How to play → </a>
-        </p>
-        <table id="gamebox">
-          <tr id="raw">
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-          </tr>
-          <tr id="raw">
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-          </tr>
-          <tr id="raw">
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-          </tr>
-          <tr id="raw">
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-            <th id="element"> </th>
-          </tr> 
-        </table>
-        <p>
-          <a name="how"></a>
-          <span>HOW TO PLAY:</span> Use your <span>arrow keys</span> to move the tiles. Tiles with the same number <span>merge into one</span> when they touch. Add them up to reach <span>2048!</span>
-          <br /> <a href="#play"> Start playing →</a>
-        </p>
-        <p>
-          You’re playing the original version of 2048. Try out the official apps for iOS and Android! All other versions of this game are derivatives and should be used with caution.
-        </p>
-      </div>
+    <body > 
+        <div id="pageWrap">
+            <h1> 
+                2048<br /> 
+            </h1> 
+            <p>
+                Join the tiles, get to <strong>2048!</strong><br> <a href="#how"> How to play → </a>
+            </p>            
+            <div class="scoreBox">
+                <div class="score">
+                    <div class="head">SCORE</div>
+                    <div class="val">148</div>
+                </div>
+                <div class="best">
+                    <div class="head">BEST</div>
+                    <div class="val">15648</div>
+                </div>
+            </div>
+            <div class="newGameButton"><a name="play"></a>
+                <strong>New Game</strong> 
+            </div>
+            <div class="gridBox">
+                <div class="gridRow">
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                </div>
+                <div class="gridRow">
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                </div>
+                <div class="gridRow">
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                </div>
+                <div class="gridRow">
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                    <div class="gridElement"> </div>
+                </div>
+            </div>
+            <p>
+                <a name="how"></a>
+                <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. Tiles with the same number <strong>merge into one</strong> when they touch. Add them up to reach <strong>2048!</strong>
+                <br /> <a href="#play"> Start playing →</a>
+            </p>
+            <p>
+                You’re playing the <strong>original version of 2048.</strong> Try out the official apps for <span>iOS</span> and <span>Android!</span> All other versions of this game are derivatives and should be used with caution.
+            </p>
+        </div>
     </body> 
 </html>     
