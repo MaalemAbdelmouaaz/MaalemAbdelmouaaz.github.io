@@ -9,7 +9,7 @@
            body {
                background-color: #faf8ef;
                font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-               font-size: 18px;
+               font-size: 17px;
                color: #776e65;   
            }
            #pageWrap {
@@ -22,8 +22,10 @@
                margin-top: 42px;
                margin-bottom: 0px;
            }
-           p {
-               line-height: 1.5;
+           hr {
+               opacity: 0.7;
+               margin-top: 35px;
+               margin-bottom: 35px;
            }
            span {
                font-weight: bold;
@@ -72,15 +74,15 @@
                left: 795px;
                background-color:#8a7766;
                width: 110px;
-               color: rgb(240, 229, 222);
+               color: #fefffb;
                text-align: center;
                padding: 10px;
                border-radius: 3px;
            }
            .gridBox {
                margin-top: 35px;
-               margin-bottom: 80px;
-               background-color:#b3a9a0;
+               margin-bottom: 35px;
+               background-color:#b8aa9f;
                text-align: center;
                font-size: 50px;
                width: 500px;
@@ -99,7 +101,7 @@
            .gridElement {
                width: 21%;
                height: 100%;
-               background-color: #cec3b8;
+               background-color: #ccc0b4;
                border-radius: 3px;
            }
            a:link {
@@ -109,6 +111,34 @@
            a:visited {
                color:#7a6f6c;
                font-weight: bolder;
+           }
+           #line {
+               width: 300px;
+               background-color:#776e65;
+           }
+           .par {
+               line-height: 1.7;
+           }
+           #feedback {
+               position: fixed;
+               transform: rotate(90deg);
+               right: 1275px;
+               top: 284px;
+               width: 122px;
+               height: 21px;
+               padding-top: 5px;
+               padding-bottom: 2px;
+               background-color: #bbafa1;
+               color: white;
+               text-align: center;
+               font-size: 13px;
+               font-weight: bold;
+               border-top-left-radius: 4px;
+               border-top-right-radius: 4px;
+               cursor: pointer;
+           }
+           #feedback:hover {
+               background-color:#8a7766;
            }
         </style>
     </head> 
@@ -132,6 +162,9 @@
             </div>
             <div class="newGameButton"><a name="play"></a>
                 <strong>New Game</strong> 
+            </div>
+            <div id="feedback">
+                Send Feedback
             </div>
             <div class="gridBox">
                 <div class="gridRow">
@@ -159,13 +192,18 @@
                     <div class="gridElement"> </div>
                 </div>
             </div>
-            <p>
+            <p class="par">
                 <a name="how"></a>
-                <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. Tiles with the same number <strong>merge into one</strong> when they touch. Add them up to reach <strong>2048!</strong>
+                <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. Tiles <br>with the same number <strong>merge into one</strong> when they touch. Add them up to reach <strong>2048!</strong>
                 <br /> <a href="#play"> Start playing →</a>
             </p>
-            <p>
+            <hr>
+            <p class="par">
                 You’re playing the <strong>original version of 2048.</strong> Try out the official apps for <span>iOS</span> and <span>Android!</span> All other versions of this game are derivatives and should be used with caution.
+            </p>
+            <hr>
+            <p>
+                Created by <span>Gabriele Cirulli.</span> Based on <span>1024 by Veewo Studio.</span>
             </p>
         </div>
     </body> 
