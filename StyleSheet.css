@@ -85,14 +85,17 @@ span {
     justify-content: space-evenly;
 }
 .gridRow {
-    width: 100%;
+    width: 97%;
     height: 21.5%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-evenly;
 }
 .gridElement {
-    width: 21.5%;
+    width: 21.9%;
     height: 100%;
+    color: #f9f6f2;
     background-color: #ccc0b4;
     border-radius: 3px;
     line-height: 2em;
@@ -164,4 +167,54 @@ img {
 footer {
     text-align: center;
     margin-bottom: 200px;
+}
+.gridElement-2 {
+    color: #776e65;
+    background-color: #eee4da;
+}
+.gridElement-4 {
+    color: #776e65;
+    background-color: #eee1c9;
+}
+.gridElement-8 {
+    background-color: #f3b27a;
+}
+.gridElement-16 {
+    background-color: #f69664;
+}
+.gridElement-32 {
+    background-color: #f77c5f;
+}
+.gridElement-64 {
+    background-color: #f75f3b;
+}
+.gridElement-128 {
+    background-color: #edd073;
+    font-size: 46px;
+    line-height: 107.5px;
+}
+.gridElement-256 {
+    background-color: #edcc62;
+    font-size: 46px;
+    line-height: 107.5px;
+}
+.gridElement-512 {
+    background-color: #edc950;
+    font-size: 46px;
+    line-height: 107.5px;
+}
+.gridElement-1024 {
+    background-color: #edc53f;
+    font-size: 36px;
+    line-height: 107.5px;
+}
+.gridElement-2048 {
+    background-color: #edc22e;
+    font-size: 36px;
+    line-height: 107.5px;
+}
+.gridElement-higher {
+    background-color: #3c3a33;
+    font-size: 30px;
+    line-height: 107.5px;
 }
