@@ -65,7 +65,7 @@ function findChange(drawer, changeGoal, change) {
     return false
   }
   let maxKey = drawerBiggestAvailableCurrencyName(drawer)
-  if (change.total + currency[maxKey] <= changeGoal) {
+  if (addFloat(change.total, currency[maxKey]) <= changeGoal) {
     transferFromDrawerToChange(maxKey, drawer, change)
   } else {
     removeFromDrawer(maxKey, drawer)
