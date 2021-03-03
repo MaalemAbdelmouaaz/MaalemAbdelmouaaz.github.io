@@ -44,7 +44,7 @@ function checkCashRegister(price, cash, cid) {
     output.status = "INSUFFICIENT_FUNDS";
     return output;
   }
-  var change = {total: 0, coins: {}};
+  let change = {total: 0, coins: {}};
   let resultChange = findChange(drawer, changeGoal, change)
   if (!resultChange) {
     return {status: "INSUFFICIENT_FUNDS", change: []}
