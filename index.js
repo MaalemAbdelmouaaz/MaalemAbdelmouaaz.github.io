@@ -1,7 +1,7 @@
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
     logicalGrid.forEach(row => {
-        mainContainer.insertAdjacentHTML( 'beforeend', gridRowTemplate(row) );
+        mainContainer.insertAdjacentHTML('beforeend', gridRowTemplate(row));
     })
 }
 
@@ -34,12 +34,19 @@ function getClass(num) {
     }
 }
 
-gridTemplate(
-    [
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0],
-    ]
-) 
-
+function rand03() {
+    return Math.floor(Math.random() * 4);
+}
+function initGrid() {
+    let grid = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ];
+    grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
+    grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
+    return grid;
+}
+let grid = initGrid();
+gridTemplate(grid);
