@@ -59,7 +59,7 @@ span {
     color: white;
     font-size: 25px;
 }
-.newGameButton {
+#newGameButton {
     margin-top: 52px;
     background-color:#8a7766;
     width: 110px;

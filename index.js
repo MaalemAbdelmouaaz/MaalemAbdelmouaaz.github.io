@@ -44,9 +44,16 @@ function initGrid() {
         [0, 0, 0, 0],
         [0, 0, 0, 0],
     ];
-    grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
-    grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
+    grid[rand03()][rand03()] = 2;
+    grid[rand03()][rand03()] = Math.random() > 0.5 ? 2 : 4;
     return grid;
 }
-let grid = initGrid();
-gridTemplate(grid);
+function clearGrid() {
+    document.getElementById("mainContainer").innerHTML = "";
+}
+gridTemplate(initGrid());
+let newButton = document.getElementById("newGameButton")
+newButton.addEventListener('click', event => {
+    clearGrid();
+    gridTemplate(initGrid());
+});
