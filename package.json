@@ -1,0 +1,22 @@
+{
+  "name": "maalemabdelmouaaz.github.io",
+  "version": "1.0.0",
+  "description": "TEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaalemAbdelmouaaz/MaalemAbdelmouaaz.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaalemAbdelmouaaz/MaalemAbdelmouaaz.github.io/issues"
+  },
+  "homepage": "https://github.com/MaalemAbdelmouaaz/MaalemAbdelmouaaz.github.io#readme",
+  "dependencies": {
+    "jest": "^26.6.3"
+  }
+}

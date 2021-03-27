@@ -45,7 +45,7 @@ function initGrid() {
         [0, 0, 0, 0],
     ];
     grid[rand03()][rand03()] = 2;
-    grid[rand03()][rand03()] = Math.random() > 0.5 ? 2 : 4;
+    grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
     return grid;
 }
 function clearGrid() {
@@ -57,3 +57,22 @@ newButton.addEventListener('click', event => {
     clearGrid();
     gridTemplate(initGrid());
 });
+
+document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    switch (event.key) {
+        case "ArrowLeft":
+            alert("left");
+            break;
+        case "ArrowRight":
+            alert("right");
+            break;
+        case "ArrowUp":
+            alert("up");
+            break;
+        case "ArrowDown":
+            alert("down");
+            break;
+    } 
+});
+
