@@ -5,7 +5,7 @@ const slide = require("./slide.js");
 test("it should return an empty array", () => {
     let row = [];
     result = slide(row);
-    expect(result).toEqual([0, 0, 0, 0]);
+    expect(result).toEqual([]);
 });
 test("it should not change the array", () => {
     let row = [4, 4, 4, 4];

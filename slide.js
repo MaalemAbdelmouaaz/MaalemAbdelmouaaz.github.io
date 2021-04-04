@@ -1,13 +1,14 @@
 const combine = require("./combine.js");
 function slide(row) {
-    var i = row.length;
+    let temp = row.length;
+    let i = temp;
     while (i--) {
         if (row[i] === 0) {
             row.splice(i, 1);
         }
     }
     combine(row);
-    while (row.length < 4) {
+    while (temp !== row.length) {
         row.unshift(0);
     }
     return row;

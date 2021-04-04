@@ -1,6 +1,6 @@
 function combine(row) {
     if (row.length >0)
-    for (let i = row.length; i >= 0; i--) {
+    for (let i = row.length-1; i >= 0; i--) {
         let a = row[i];
         let b = row[i - 1];
         if (a == b) {
