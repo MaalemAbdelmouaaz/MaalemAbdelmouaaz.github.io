@@ -36,5 +36,5 @@ function rotate(arr, direction = 'l') {
   
     return rotated;
   }
-  module.exports = rotate;
+  module.exports = rotate, reverseGrid;
   

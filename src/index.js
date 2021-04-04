@@ -1,3 +1,10 @@
+import _ from 'lodash';
+import './styleSheet.css';
+
+const [reverseGrid] = require("./rotate.js");
+const gridSlide = require("./gridSlide.js");
+const [rotate] = require("./rotate.js");
+const mainGrid = [];
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
     logicalGrid.forEach(row => {
@@ -58,14 +65,14 @@ newButton.addEventListener('click', event => {
     gridTemplate(initGrid());
 });
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     const key = event.key;
     switch (event.key) {
         case "ArrowLeft":
-            alert("left");
+            mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)))
             break;
         case "ArrowRight":
-            alert("right");
+            mainGrid = gridSlide(mainGrid)
             break;
         case "ArrowUp":
             alert("up");
@@ -73,6 +80,6 @@ document.addEventListener('keydown', function(event) {
         case "ArrowDown":
             alert("down");
             break;
-    } 
+    }
 });
 
