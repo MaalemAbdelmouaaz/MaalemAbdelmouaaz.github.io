@@ -1,10 +1,8 @@
-import _ from 'lodash';
-import './styleSheet.css';
+import './StyleSheet.css';
 
-const [reverseGrid] = require("./rotate.js");
+const {reverseGrid, rotate} = require("./rotate.js");
 const gridSlide = require("./gridSlide.js");
-const [rotate] = require("./rotate.js");
-const mainGrid = [];
+let mainGrid = [];
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
     logicalGrid.forEach(row => {
@@ -58,21 +56,24 @@ function initGrid() {
 function clearGrid() {
     document.getElementById("mainContainer").innerHTML = "";
 }
-gridTemplate(initGrid());
+mainGrid = initGrid()
+gridTemplate(mainGrid);
 let newButton = document.getElementById("newGameButton")
 newButton.addEventListener('click', event => {
     clearGrid();
-    gridTemplate(initGrid());
+    mainGrid = initGrid()
+    gridTemplate(mainGrid);
 });
 
 document.addEventListener('keydown', function (event) {
-    const key = event.key;
     switch (event.key) {
         case "ArrowLeft":
-            mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)))
+          mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)))
+          clearGrid();
+          gridTemplate(mainGrid)
             break;
         case "ArrowRight":
-            mainGrid = gridSlide(mainGrid)
+          mainGrid = gridSlide(mainGrid)
             break;
         case "ArrowUp":
             alert("up");
