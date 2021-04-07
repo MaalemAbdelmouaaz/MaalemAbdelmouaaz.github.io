@@ -2,8 +2,8 @@ import './StyleSheet.css';
 
 const { reverseGrid, rotate } = require("./rotate.js");
 const gridSlide = require("./gridSlide.js");
-const addNumber = require("./addNumber.js");
 const compare = require("./compare.js");
+const addNumber = require("./addNumber.js");
 let mainGrid = [];
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
@@ -74,7 +74,9 @@ window.addEventListener("keydown", function (e) {
 
 
 document.addEventListener('keydown', function (event) {
-    let oldGrid = mainGrid;
+    var oldGrid = mainGrid.map(function (arr) {
+        return arr.slice();
+    });
     switch (event.key) {
         case "ArrowLeft":
             mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)));

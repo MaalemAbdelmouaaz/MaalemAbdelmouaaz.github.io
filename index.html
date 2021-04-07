@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            2048
+        </title>
+        <link rel = "icon" href ="http://gabrielecirulli.github.io/2048/meta/og_image.png" type = "image/x-icon">
+    </head>
+    <body >
+        <div id="pageWrap">
+            <div id="header-container">
+                <div id="header-container-left">
+                    <h1>
+                        2048<br />
+                    </h1>
+                    <p>
+                        Join the tiles, get to <strong>2048!</strong><br> <a href="#how"> How to play → </a>
+                    </p>
+                </div>
+                <div id="header-container-right">
+                    <div class="scoreBox">
+                        <div class="scoreData">
+                            <div class="head">SCORE</div>
+                            <div class="val">0</div>
+                        </div>
+                        <div class="scoreData">
+                            <div class="head">BEST</div>
+                            <div class="val">0</div>
+                        </div>
+                    </div>
+                    <div id="newGameButton"><a name="play"></a>
+                        <strong>New Game</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="gridBox"  id="mainContainer"></div>
+
+
+
+            <p class="par">
+                <a name="how"></a>
+                <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. Tiles <br>with the same number <strong>merge into one</strong> when they touch. Add them up to reach <strong>2048!</strong>
+                <br /> <a href="#play"> Start playing →</a>
+            </p>
+            <hr>
+            <p class="par">
+                You’re playing the <strong>original version of 2048.</strong> Try out the official apps for <span>iOS</span> and <span>Android!</span> All other versions of this game are derivatives and should be used with caution.
+            </p>
+            <hr>
+            <p>
+                Created by <span>Gabriele Cirulli.</span> Based on <span>1024 by Veewo Studio.</span>
+            </p>
+            <div id="donate">
+                <img src="https://listimg.pinclipart.com/picdir/s/139-1397724_paypal-paypal-logo-transparent-background-small-clipart.png">  Donate
+            </div>
+            <div id="donateBTC">
+                <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/45_Bitcoin_logo_logos-512.png"> Donate BTC
+            </div>
+            <footer>
+                <span>Privacy Policy</span> · <span>Play 2048 on Poki</span>
+            </footer>
+        </div>
+        <div id="feedback">
+            Send Feedback
+        </div>
+        <script src="bundle.js"></script>
+    </body>
+</html>

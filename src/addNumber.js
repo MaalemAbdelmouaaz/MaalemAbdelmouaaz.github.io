@@ -12,7 +12,7 @@ function addNumber(arr) {
     }
     if (zeros.length > 0) {
         let randomElement = zeros[Math.floor(Math.random() * zeros.length)];
-        arr[randomElement.x][randomElement.y] = Math.random() < 0.9 ? 2 : 4;
+        arr[randomElement.x][randomElement.y] = Math.random() < 0.8 ? 2 : 4;
     }
     return arr;
 }
