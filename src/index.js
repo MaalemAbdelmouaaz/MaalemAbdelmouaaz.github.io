@@ -1,7 +1,9 @@
 import './StyleSheet.css';
 
-const {reverseGrid, rotate} = require("./rotate.js");
+const { reverseGrid, rotate } = require("./rotate.js");
 const gridSlide = require("./gridSlide.js");
+const addNumber = require("./addNumber.js");
+const compare = require("./compare.js");
 let mainGrid = [];
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
@@ -64,23 +66,34 @@ newButton.addEventListener('click', event => {
     mainGrid = initGrid()
     gridTemplate(mainGrid);
 });
+window.addEventListener("keydown", function (e) {
+    if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+
 
 document.addEventListener('keydown', function (event) {
+    let oldGrid = mainGrid;
     switch (event.key) {
         case "ArrowLeft":
-          mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)))
-          clearGrid();
-          gridTemplate(mainGrid)
+            mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)));
             break;
         case "ArrowRight":
-          mainGrid = gridSlide(mainGrid)
+            mainGrid = gridSlide(mainGrid);
             break;
         case "ArrowUp":
-            alert("up");
+            mainGrid = rotate(gridSlide(rotate(mainGrid, 'r')), 'l');
             break;
         case "ArrowDown":
-            alert("down");
+            mainGrid = rotate(gridSlide(rotate(mainGrid, 'l')), 'r');
             break;
     }
+    let changed = compare(oldGrid, mainGrid);
+    if (changed) {
+        addNumber(mainGrid);
+    }
+    clearGrid();
+    gridTemplate(mainGrid);
 });
 

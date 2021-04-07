@@ -1,6 +1,6 @@
 const { expect } = require("@jest/globals");
 
-const {rotate} = require("./rotate.js");
+const { rotate } = require("./rotate.js");
 
 test("number 1", () => {
     let arr = [
