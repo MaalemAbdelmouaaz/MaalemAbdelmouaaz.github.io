@@ -5,22 +5,30 @@ const gridSlide = require("./gridSlide.js");
 const compare = require("./compare.js");
 const addNumber = require("./addNumber.js");
 let mainGrid = [];
+
+const ELEMENT_SIZE = 107;
+const MARGIN = 15;
+
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
-    logicalGrid.forEach(row => {
-        mainContainer.insertAdjacentHTML('beforeend', gridRowTemplate(row));
+    logicalGrid.forEach((row, i) => {
+        row.forEach((e, j) => {
+            mainContainer.insertAdjacentHTML('beforeend', gridElementTemplate(i, j, e));
+        })
     })
 }
-
-
-function gridRowTemplate(logicalRow) {
-    return `<div class="gridRow">
-            ${logicalRow.map(e => gridElementTemplate(e)).join("<br>")}        
-            </div>`
+function gridElementStyle(i, j) {
+    let mainContainer = document.getElementById("mainContainer")
+    const t = mainContainer.offsetTop + MARGIN
+    const l = mainContainer.offsetLeft + MARGIN
+    const et = (ELEMENT_SIZE + MARGIN) * i + t
+    const el = (ELEMENT_SIZE + MARGIN) * j + l
+    return `style="top: ${et}px left: ${el}px"`
 }
 
-function gridElementTemplate(num) {
-    return `<div class="gridElement ${getClass(num)}" >${num === 0 ? "" : num}</div>`
+
+function gridElementTemplate(i, j, num) {
+    return `<div class="gridElement ${getClass(num)}" ${gridElementStyle(i, j)}>${num === 0 ? "" : num}</div>`
 }
 function getClass(num) {
     switch (num) {

@@ -80,25 +80,14 @@ span {
     width: 500px;
     height: 500px;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-.gridRow {
-    width: 97%;
-    height: 21.5%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: space-evenly;
 }
 .gridElement {
-    width: 21.9%;
-    height: 100%;
+    position: absolute;
+    width: 107px;
+    height: 107px;
     color: #f9f6f2;
     background-color: #ccc0b4;
     border-radius: 3px;
-    line-height: 2em;
 }
 a:link {
     color:#7a6f6c;
