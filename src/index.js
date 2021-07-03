@@ -23,7 +23,7 @@ function gridElementStyle(i, j) {
     const l = mainContainer.offsetLeft + MARGIN
     const et = (ELEMENT_SIZE + MARGIN) * i + t
     const el = (ELEMENT_SIZE + MARGIN) * j + l
-    return `style="top: ${et}px left: ${el}px"`
+    return `style="top: ${et}px; left: ${el}px"`
 }
 
 
