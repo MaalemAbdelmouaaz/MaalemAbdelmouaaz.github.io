@@ -82,28 +82,110 @@ window.addEventListener("keydown", function (e) {
 
 
 document.addEventListener('keydown', function (event) {
-    var oldGrid = mainGrid.map(function (arr) {
-        return arr.slice();
-    });
-    switch (event.key) {
-        case "ArrowLeft":
-            mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)));
-            break;
-        case "ArrowRight":
-            mainGrid = gridSlide(mainGrid);
-            break;
-        case "ArrowUp":
-            mainGrid = rotate(gridSlide(rotate(mainGrid, 'r')), 'l');
-            break;
-        case "ArrowDown":
-            mainGrid = rotate(gridSlide(rotate(mainGrid, 'l')), 'r');
-            break;
-    }
-    let changed = compare(oldGrid, mainGrid);
-    if (changed) {
-        addNumber(mainGrid);
-    }
-    clearGrid();
-    gridTemplate(mainGrid);
+    let grid = extractDataGrid(event.key)
+    let animations = getAnimations(grid, event.key)
+    animations.forEach(a => execAnimations(a))
+   
+    // var oldGrid = mainGrid.map(function (arr) {
+    //     return arr.slice();
+    // });
+    // switch (event.key) {
+    //     case "ArrowLeft":
+    //         mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)));
+    //         break;
+    //     case "ArrowRight":
+    //         mainGrid = gridSlide(mainGrid);
+    //         break;
+    //     case "ArrowUp":
+    //         mainGrid = rotate(gridSlide(rotate(mainGrid, 'r')), 'l');
+    //         break;
+    //     case "ArrowDown":
+    //         mainGrid = rotate(gridSlide(rotate(mainGrid, 'l')), 'r');
+    //         break;
+    // }
+    // let changed = compare(oldGrid, mainGrid);
+    // if (changed) {
+    //     addNumber(mainGrid);
+    // }
+    // clearGrid();
+    // gridTemplate(mainGrid);
+
 });
 
+
+
+function extractDataGrid(arrow) {
+    let list = document.getElementsByClassName("gridElement")
+    let grid = []
+    let row = []
+    for (let i = 0; i < list.length; i++) {
+        if (i%4 === 0) {
+            grid.push([...row])
+            row = []
+        }
+        row.push({i: i%4, j: Math.floor(i / 4), value: getIntValue(list[i])})
+    }
+    switch (arrow) {
+        case "ArrowLeft":
+            grid = reverseGrid(gridSlide(reverseGrid(grid)));
+            break;
+        case "ArrowRight":
+            grid = gridSlide(grid);
+            break;
+        case "ArrowUp":
+            grid = rotate(gridSlide(rotate(grid, 'r')), 'l');
+            break;
+        case "ArrowDown":
+            grid = rotate(gridSlide(rotate(grid, 'l')), 'r');
+            break;
+    }
+    return grid
+}
+
+function getIntValue(e) {
+    return e.innerHTML === "" ? 0 : parseInt(e.innerHTML)
+}
+
+function getAnimations(grid, vector) {
+    let animations = [];
+    grid.forEach[row => {
+        getAnimationsForRow(row, animations, vector);
+    }]
+    return animations;
+}
+
+function getAnimationsForRow(row, animations, vector) {
+    let zerosCount = 0;
+    row.forEach(e => {
+        if (e.value === 0) {
+            zerosCount++;
+        } else {
+            animations.push({e, distance: zerosCount, direction: vector});
+        }
+    })
+}
+
+function execAnimations(a) {
+    let distanceInPixels = a.distance * (ELEMENT_SIZE + MARGIN)
+    let vx, vy;
+    switch (a.direction) {
+        case 'ArrowLeft':
+            vx = distanceInPixels;
+            vy = 0;
+            break;
+        case 'ArrowRight':
+            vx = -distanceInPixels;
+            vy = 0;
+            break;
+        case 'ArrowUp':
+            vx = 0;
+            vy = -distanceInPixels;
+            break;
+        case 'ArrowDown':
+            vx = 0;
+            vy = distanceInPixels;
+            break;
+    }
+    a.e.style.transitionDuration = "0.3s"
+    a.e.style.transform = 'translate(${vx}px,${vy}px)'
+}
