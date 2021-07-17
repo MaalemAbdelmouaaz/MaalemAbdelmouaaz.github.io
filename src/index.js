@@ -4,6 +4,7 @@ const { reverseGrid, rotate } = require("./rotate.js");
 const gridSlide = require("./gridSlide.js");
 const compare = require("./compare.js");
 const addNumber = require("./addNumber.js");
+const listToMatrix = require("./listToMatrix.js")
 let mainGrid = [];
 
 const ELEMENT_SIZE = 107;
@@ -116,15 +117,12 @@ document.addEventListener('keydown', function (event) {
 
 function extractDataGrid(arrow) {
     let list = document.getElementsByClassName("gridElement")
-    let grid = []
-    let row = []
-    for (let i = 0; i < list.length; i++) {
-        if (i%4 === 0) {
-            grid.push([...row])
-            row = []
-        }
-        row.push({i: i%4, j: Math.floor(i / 4), value: getIntValue(list[i])})
+    let arr = []
+    for (let e of list ) {
+        arr.push(getIntValue(e))
     }
+    let grid = listToMatrix(arr, 4)
+   
     switch (arrow) {
         case "ArrowLeft":
             grid = reverseGrid(gridSlide(reverseGrid(grid)));

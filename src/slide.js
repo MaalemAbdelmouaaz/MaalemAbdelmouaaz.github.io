@@ -7,7 +7,6 @@ function slide(row) {
             row.splice(i, 1);
         }
     }
-    combine(row);
     while (temp !== row.length) {
         row.unshift(0);
     }
