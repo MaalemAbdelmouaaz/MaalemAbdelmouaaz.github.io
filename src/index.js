@@ -19,12 +19,17 @@ function gridTemplate(logicalGrid) {
     })
 }
 function gridElementStyle(i, j) {
-    let mainContainer = document.getElementById("mainContainer")
-    const t = mainContainer.offsetTop + MARGIN
-    const l = mainContainer.offsetLeft + MARGIN
-    const et = (ELEMENT_SIZE + MARGIN) * i + t
-    const el = (ELEMENT_SIZE + MARGIN) * j + l
+    const [et, el] = calcStyleCoords(i, j)
     return `style="top: ${et}px; left: ${el}px"`
+}
+
+function calcStyleCoords(i,j) {
+  let mainContainer = document.getElementById("mainContainer")
+  const t = mainContainer.offsetTop + MARGIN
+  const l = mainContainer.offsetLeft + MARGIN
+  const et = (ELEMENT_SIZE + MARGIN) * i + t
+  const el = (ELEMENT_SIZE + MARGIN) * j + l
+  return [et,el]
 }
 
 
@@ -34,7 +39,7 @@ function gridElementTemplate(i, j, num) {
 function getClass(num) {
     switch (num) {
         case 0:
-            return "";
+            return "gridElement-0";
         case 2: return "gridElement-2";
         case 4: return "gridElement-4";
         case 8: return "gridElement-8";
@@ -86,7 +91,7 @@ document.addEventListener('keydown', function (event) {
     let grid = extractDataGrid(event.key)
     let animations = getAnimations(grid, event.key)
     animations.forEach(a => execAnimations(a))
-   
+    //setTimeout(clearAnimationStyle, 301)
     // var oldGrid = mainGrid.map(function (arr) {
     //     return arr.slice();
     // });
@@ -117,38 +122,30 @@ document.addEventListener('keydown', function (event) {
 
 function extractDataGrid(arrow) {
     let list = document.getElementsByClassName("gridElement")
-    let arr = []
-    for (let e of list ) {
-        arr.push(getIntValue(e))
-    }
-    let grid = listToMatrix(arr, 4)
-   
+
+    let grid = listToMatrix(list, 4)
+
     switch (arrow) {
-        case "ArrowLeft":
-            grid = reverseGrid(gridSlide(reverseGrid(grid)));
-            break;
         case "ArrowRight":
-            grid = gridSlide(grid);
+            grid = reverseGrid(grid);
             break;
-        case "ArrowUp":
-            grid = rotate(gridSlide(rotate(grid, 'r')), 'l');
+        case "ArrowLeft":
             break;
         case "ArrowDown":
-            grid = rotate(gridSlide(rotate(grid, 'l')), 'r');
+            grid = rotate(grid, 'r');
+            break;
+        case "ArrowUp":
+            grid = rotate(grid, 'l');
             break;
     }
     return grid
 }
 
-function getIntValue(e) {
-    return e.innerHTML === "" ? 0 : parseInt(e.innerHTML)
-}
-
 function getAnimations(grid, vector) {
     let animations = [];
-    grid.forEach[row => {
+    grid.forEach(row => {
         getAnimationsForRow(row, animations, vector);
-    }]
+    })
     return animations;
 }
 
@@ -168,11 +165,11 @@ function execAnimations(a) {
     let vx, vy;
     switch (a.direction) {
         case 'ArrowLeft':
-            vx = distanceInPixels;
+            vx = -distanceInPixels;
             vy = 0;
             break;
         case 'ArrowRight':
-            vx = -distanceInPixels;
+            vx = distanceInPixels;
             vy = 0;
             break;
         case 'ArrowUp':
@@ -184,6 +181,20 @@ function execAnimations(a) {
             vy = distanceInPixels;
             break;
     }
-    a.e.style.transitionDuration = "0.3s"
-    a.e.style.transform = 'translate(${vx}px,${vy}px)'
+    let style = a.e.e.style
+    style.transitionDuration = "0.3s"
+    style.transform = `translate(${vx}px,${vy}px)`
+}
+function clearAnimationStyle() {
+  let grid = extractDataGrid()
+  grid.forEach(row => {
+    row.forEach(e => {
+      const [newT, newL] = calcStyleCoords(e.i, e.j)
+      let style = e.e.style
+      style.top = `${newT}px`
+      style.left = `${newL}px`
+      style.transform = ""
+    })
+  })
+
 }

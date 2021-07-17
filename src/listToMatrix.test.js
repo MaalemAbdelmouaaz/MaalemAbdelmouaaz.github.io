@@ -8,3 +8,11 @@ test("1", () => {
     result = listToMatrix(list, elementsPerSubArray);
     expect(result).toEqual([[1,1,1,1], [1,1,1,1]]);
 });
+
+
+test("2", () => {
+  let list = [2,4,1,0,0,8,1,1,9];
+  let elementsPerSubArray = 3;
+  result = listToMatrix(list, elementsPerSubArray);
+  expect(result).toEqual([[2,4,1], [0,0,8], [1,1,9]]);
+});

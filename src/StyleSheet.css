@@ -2,7 +2,7 @@ body {
     background-color: #faf8ef;
     font-family: Arial, sans-serif;
     font-size: 17px;
-    color: #776e65;   
+    color: #776e65;
 }
 #pageWrap {
     width: 500px;
@@ -13,11 +13,11 @@ body {
     flex-direction: row;
 }
 #header-container-left {
-    margin-top: 30px; 
+    margin-top: 30px;
     width: 50%;
 }
 #header-container-right {
-    margin-top: 30px; 
+    margin-top: 30px;
     width: 50%;
 }
 h1 {
@@ -157,6 +157,9 @@ img {
 footer {
     text-align: center;
     margin-bottom: 200px;
+}
+.gridElement-0 {
+    display: none;
 }
 .gridElement-2 {
     color: #776e65;
