@@ -10,6 +10,8 @@ let mainGrid = [];
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
 
+const TRANSITION_DURATION = 0.3
+
 function gridTemplate(logicalGrid) {
     let mainContainer = document.getElementById("mainContainer")
     logicalGrid.forEach((row, i) => {
@@ -34,7 +36,7 @@ function calcStyleCoords(i,j) {
 
 
 function gridElementTemplate(i, j, num) {
-    return `<div class="gridElement ${getClass(num)}" ${gridElementStyle(i, j)}>${num === 0 ? "" : num}</div>`
+    return `<div class="gridElement ${getClass(num)}" ${gridElementStyle(i, j)} data-i="${i}" data-j="${j}">${num === 0 ? "" : num}</div>`
 }
 function getClass(num) {
     switch (num) {
@@ -80,18 +82,16 @@ newButton.addEventListener('click', event => {
     mainGrid = initGrid()
     gridTemplate(mainGrid);
 });
-window.addEventListener("keydown", function (e) {
-    if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-    }
-}, false);
-
 
 document.addEventListener('keydown', function (event) {
+    if(!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+      return
+    }
+    event.preventDefault();
     let grid = extractDataGrid(event.key)
     let animations = getAnimations(grid, event.key)
     animations.forEach(a => execAnimations(a))
-    //setTimeout(clearAnimationStyle, 301)
+    setTimeout(updateElement, 1 + TRANSITION_DURATION * 1000)
     // var oldGrid = mainGrid.map(function (arr) {
     //     return arr.slice();
     // });
@@ -155,46 +155,63 @@ function getAnimationsForRow(row, animations, vector) {
         if (e.value === 0) {
             zerosCount++;
         } else {
+          if(zerosCount>0) {
             animations.push({e, distance: zerosCount, direction: vector});
+          }
         }
     })
 }
 
 function execAnimations(a) {
-    let distanceInPixels = a.distance * (ELEMENT_SIZE + MARGIN)
+    if (a.distance === 0) {
+      return
+    }
     let vx, vy;
     switch (a.direction) {
         case 'ArrowLeft':
-            vx = -distanceInPixels;
+            vx = -a.distance;
             vy = 0;
             break;
         case 'ArrowRight':
-            vx = distanceInPixels;
+            vx = a.distance;
             vy = 0;
             break;
         case 'ArrowUp':
             vx = 0;
-            vy = -distanceInPixels;
+            vy = -a.distance;
             break;
         case 'ArrowDown':
             vx = 0;
-            vy = distanceInPixels;
+            vy = a.distance;
             break;
+      default:
+        alert("nothing to do ")
     }
-    let style = a.e.e.style
-    style.transitionDuration = "0.3s"
-    style.transform = `translate(${vx}px,${vy}px)`
+    let elem = a.e.e
+    let style = elem.style
+    style.transitionDuration = `${TRANSITION_DURATION}s`
+    style.transform = `translate(${vx* (ELEMENT_SIZE + MARGIN)}px,${vy* (ELEMENT_SIZE + MARGIN)}px)`
+    let oldI = a.e.i
+    let oldJ = a.e.j
+    let newI = oldI + vy
+    let newJ = oldJ + vx
+    let swap = document.querySelector(`[data-i='${newI}'][data-j='${newJ}']`)
+    elem.setAttribute("data-i", newI)
+    elem.setAttribute("data-j", newJ)
+    swap.setAttribute("data-i", oldI)
+    swap.setAttribute("data-j", oldJ)
 }
-function clearAnimationStyle() {
+
+function updateElement() {
   let grid = extractDataGrid()
   grid.forEach(row => {
     row.forEach(e => {
       const [newT, newL] = calcStyleCoords(e.i, e.j)
-      let style = e.e.style
-      style.top = `${newT}px`
-      style.left = `${newL}px`
-      style.transform = ""
+       let style = e.e.style
+       style.transitionDuration = "0s"
+       style.transform = ""
+       style.top = `${newT}px`
+       style.left = `${newL}px`
     })
   })
-
 }

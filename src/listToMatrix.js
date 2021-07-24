@@ -1,14 +1,16 @@
 function listToMatrix(list, matrixDimension) {
-    let matrix = [];
+    let matrix = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ];
 
     for (let i = 0; i< list.length; i++) {
-        if (i % matrixDimension === 0) {
-            matrix[i/matrixDimension] = [];
-        }
-
-        matrix[Math.floor(i/matrixDimension)].push(
-          {e: list[i],  i: i%4, j: Math.floor(i / 4), value: getIntValue(list[i])}
-        );
+      const e = list[i]
+      const eI = parseInt(e.getAttribute("data-i"))
+      const eJ = parseInt(e.getAttribute("data-j"))
+      matrix[eI][eJ] = {e: list[i],  i: eI, j: eJ, value: getIntValue(list[i])};
     }
     return matrix;
 }
