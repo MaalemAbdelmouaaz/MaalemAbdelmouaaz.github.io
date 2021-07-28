@@ -1,19 +1,15 @@
-function addNumber(arr) {
-    let zeros = [];
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (arr[i][j] === 0) {
-                zeros.push({
-                    x: i,
-                    y: j
-                });
-            }
-        }
-    }
-    if (zeros.length > 0) {
-        let randomElement = zeros[Math.floor(Math.random() * zeros.length)];
-        arr[randomElement.x][randomElement.y] = Math.random() > 0.1 ? 2 : 4;
-    }
-    return arr;
+function addNumber() {
+  let zeros = document.getElementsByClassName("gridElement-0");
+  let randomZero = [];
+  if (zeros.length > 0) {
+    randomZero = zeros[Math.floor(Math.random() * zeros.length)];
+  }
+  if (Math.random() > 0.1) {
+    randomZero.className = "gridElement gridElement-2";
+    randomZero.innerHTML = "2";
+  } else {
+    randomZero.className = "gridElement gridElement-4";
+    randomZero.innerHTML = "4";
+  }
 }
 module.exports = addNumber;

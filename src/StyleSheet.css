@@ -159,11 +159,11 @@ footer {
     margin-bottom: 200px;
 }
 .gridElement-0 {
-    display: none;
 }
 .gridElement-2 {
     color: #776e65;
     background-color: #eee4da;
+    z-index: 5;
 }
 .gridElement-4 {
     color: #776e65;
