@@ -5,6 +5,7 @@ const gridSlide = require("./gridSlide.js");
 const compare = require("./compare.js");
 const addNumber = require("./addNumber.js");
 const listToMatrix = require("./listToMatrix.js");
+const getAnimationsForRow = require("./getAnimationsForRow.js");
 var lodash = require("lodash");
 let mainGrid = [];
 
@@ -173,19 +174,6 @@ function getAnimations(grid, vector) {
   return animations;
 }
 
-function getAnimationsForRow(row, animations, vector) {
-  let zerosCount = 0;
-  row.forEach((e) => {
-    if (e.value === 0) {
-      zerosCount++;
-    } else {
-      if (zerosCount > 0) {
-        animations.push({ e, distance: zerosCount, direction: vector });
-      }
-    }
-  });
-}
-
 function execAnimations(a) {
   if (a.distance === 0) {
     return;
@@ -226,6 +214,13 @@ function execAnimations(a) {
   elem.setAttribute("data-j", newJ);
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
+  if (elem.innerHTML === swap.innerHTML) {
+    let val = parseInt(elem.innerHTML) * 2
+    elem.innerHTML = `${val}`
+    elem.className = `gridElement gridElement-${val}`;
+    swap.innerHTML = "";
+    swap.className = "gridElement gridElement-0";
+  }
 }
 
 function updateElement() {
