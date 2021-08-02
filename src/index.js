@@ -1,14 +1,15 @@
 import "./StyleSheet.css";
 
 const { reverseGrid, rotate } = require("./rotate.js");
-const gridSlide = require("./gridSlide.js");
-const compare = require("./compare.js");
 const addNumber = require("./addNumber.js");
 const listToMatrix = require("./listToMatrix.js");
 const getAnimationsForRow = require("./getAnimationsForRow.js");
 var lodash = require("lodash");
 let mainGrid = [];
-
+const scoreDisplay = document.getElementById("score");
+const bestScore = document.getElementById("best");
+let score = 0;
+let best = parseInt(bestScore.innerHTML);
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
 const TRANSITION_DURATION = 0.3;
@@ -87,11 +88,17 @@ function initGrid() {
     [0, 0, 0, 0],
   ];
   grid[rand03()][rand03()] = 2;
-  grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
-  let sum = lodash.sum(grid);
-  if (sum < 4) {
+  let sum = 0
+  do {
     grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
-  }
+    grid.forEach((row) => {
+      row.forEach((e) => {
+        if (e !== 0) {
+          sum++
+        }
+      })
+    })
+  } while (sum === 1);
   return grid;
 }
 function clearGrid() {
@@ -102,10 +109,11 @@ gridTemplate(mainGrid);
 let newButton = document.getElementById("newGameButton");
 newButton.addEventListener("click", (event) => {
   clearGrid();
+  score = 0;
+  scoreDisplay.innerHTML = 0;
   mainGrid = initGrid();
   gridTemplate(mainGrid);
 });
-
 document.addEventListener("keydown", function (event) {
   if (
     !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
@@ -116,35 +124,15 @@ document.addEventListener("keydown", function (event) {
   let grid = extractDataGrid(event.key);
   let animations = getAnimations(grid, event.key);
   animations.forEach((a) => execAnimations(a));
+  if (score > best) {
+    best = score;
+  }
+  bestScore.innerHTML = best;
   setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   if (animations.length > 0) {
     setTimeout(addNumber, AFTER_TRANSITION_DURATION);
   }
-  // var oldGrid = mainGrid.map(function (arr) {
-  //     return arr.slice();
-  // });
-  // switch (event.key) {
-  //     case "ArrowLeft":
-  //         mainGrid = reverseGrid(gridSlide(reverseGrid(mainGrid)));
-  //         break;
-  //     case "ArrowRight":
-  //         mainGrid = gridSlide(mainGrid);
-  //         break;
-  //     case "ArrowUp":
-  //         mainGrid = rotate(gridSlide(rotate(mainGrid, 'r')), 'l');
-  //         break;
-  //     case "ArrowDown":
-  //         mainGrid = rotate(gridSlide(rotate(mainGrid, 'l')), 'r');
-  //         break;
-  // }
-  // let changed = compare(oldGrid, mainGrid);
-  // if (changed) {
-  //     addNumber(mainGrid);
-  // }
-  // clearGrid();
-  // gridTemplate(mainGrid);
 });
-
 function extractDataGrid(arrow) {
   let list = document.getElementsByClassName("gridElement");
 
@@ -215,11 +203,13 @@ function execAnimations(a) {
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
   if (elem.innerHTML === swap.innerHTML) {
-    let val = parseInt(elem.innerHTML) * 2
-    elem.innerHTML = `${val}`
+    let val = parseInt(elem.innerHTML) * 2;
+    elem.innerHTML = `${val}`;
     elem.className = `gridElement gridElement-${val}`;
     swap.innerHTML = "";
     swap.className = "gridElement gridElement-0";
+    score += val;
+    scoreDisplay.innerHTML = score;
   }
 }
 
@@ -233,6 +223,18 @@ function updateElement() {
       style.transform = "";
       style.top = `${newT}px`;
       style.left = `${newL}px`;
+    });
+  });
+}
+
+function checkWin() {
+  let grid = extractDataGrid();
+  grid.forEach((row) => {
+    row.forEach((e) => {
+      if (e.value === 2048) {
+        document.removeEventListener("keydown",      )
+        mainContainer.insertAdjacentHTML("afterend", "<p> you win</p>")
+      }
     });
   });
 }

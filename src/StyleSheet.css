@@ -1,213 +1,214 @@
 body {
-    background-color: #faf8ef;
-    font-family: Arial, sans-serif;
-    font-size: 17px;
-    color: #776e65;
+  background-color: #faf8ef;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  color: #776e65;
 }
 #pageWrap {
-    width: 500px;
-    margin: 0 auto;
+  width: 500px;
+  margin: 0 auto;
 }
 #header-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 #header-container-left {
-    margin-top: 30px;
-    width: 50%;
+  margin-top: 30px;
+  width: 50%;
 }
 #header-container-right {
-    margin-top: 30px;
-    width: 50%;
+  margin-top: 30px;
+  width: 50%;
 }
 h1 {
-    font-size: 80px;
-    font-weight: bold;
-    margin: 0px;
+  font-size: 80px;
+  font-weight: bold;
+  margin: 0px;
 }
 hr {
-    opacity: 0.7;
-    margin-top: 35px;
-    margin-bottom: 35px;
+  opacity: 0.7;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 span {
-    font-weight: bold;
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    cursor: pointer;
+  font-weight: bold;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  cursor: pointer;
 }
 .scoreBox {
-    text-align: center;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 .scoreData {
-    background-color: #b8a99f;
-    display: flex;
-    flex-direction: column;
-    border-radius: 3px;
-    margin-left: 5px;
-    padding: 10px 10% 0px 10%;
+  background-color: #b8a99f;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  margin-left: 5px;
+  padding: 10px 10% 0px 10%;
 }
 .head {
-    color: #e9dfd5;
-    font-size: 12px;
+  color: #e9dfd5;
+  font-size: 12px;
 }
 .val {
-    color: white;
-    font-size: 25px;
+  color: white;
+  font-size: 25px;
 }
 #newGameButton {
-    margin-top: 52px;
-    background-color:#8a7766;
-    width: 110px;
-    color: #fefffb;
-    text-align: center;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    float: right;
+  margin-top: 52px;
+  background-color: #8a7766;
+  width: 110px;
+  color: #fefffb;
+  text-align: center;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  float: right;
 }
 .gridBox {
-    margin-top: 23px;
-    margin-bottom: 35px;
-    background-color:#b8aa9f;
-    text-align: center;
-    font-size: 55px;
-    font-weight: bolder;
-    line-height: 1.8;
-    width: 500px;
-    height: 500px;
-    border-radius: 5px;
+  margin-top: 23px;
+  margin-bottom: 35px;
+  background-color: #b8aa9f;
+  text-align: center;
+  font-size: 55px;
+  font-weight: bolder;
+  line-height: 1.8;
+  width: 500px;
+  height: 500px;
+  border-radius: 5px;
 }
 .gridElement {
-    position: absolute;
-    width: 107px;
-    height: 107px;
-    color: #f9f6f2;
-    background-color: #ccc0b4;
-    border-radius: 3px;
+  position: absolute;
+  width: 107px;
+  height: 107px;
+  color: #f9f6f2;
+  background-color: #ccc0b4;
+  border-radius: 3px;
+  z-index: 5;
 }
 a:link {
-    color:#7a6f6c;
-    font-weight: bolder;
+  color: #7a6f6c;
+  font-weight: bolder;
 }
 a:visited {
-    color:#7a6f6c;
-    font-weight: bolder;
+  color: #7a6f6c;
+  font-weight: bolder;
 }
 #line {
-    width: 300px;
-    background-color:#776e65;
+  width: 300px;
+  background-color: #776e65;
 }
 .par {
-    line-height: 1.7;
+  line-height: 1.7;
 }
 #feedback {
-    position: fixed;
-    transform: rotate(90deg);
-    transform-origin:left;
-    top: 220px;
-    padding : 5px 8px 14px 8px;
-    background-color: #bbafa1;
-    color: white;
-    text-align: center;
-    font-size: 13px;
-    font-stretch: expanded;
-    font-weight: bold;
-    letter-spacing: 0.08em;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    cursor: pointer;
+  position: fixed;
+  transform: rotate(90deg);
+  transform-origin: left;
+  top: 220px;
+  padding: 5px 8px 14px 8px;
+  background-color: #bbafa1;
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  font-stretch: expanded;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
 }
 #feedback:hover {
-    background-color:#8a7766;
+  background-color: #8a7766;
 }
 #donate {
-    background-color:#8a7766;
-    width: 122px;
-    padding: 8px 0;
-    color: white;
-    text-align: center;
-    margin-top: 30px;
-    border-radius: 3px;
-    position: relative;
-    left: 100px;
-    cursor: pointer;
+  background-color: #8a7766;
+  width: 122px;
+  padding: 8px 0;
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 3px;
+  position: relative;
+  left: 100px;
+  cursor: pointer;
 }
 #donateBTC {
-    background-color:#8a7766;
-    width: 150px;
-    padding: 10px 0;
-    color: white;
-    text-align: center;
-    border-radius: 3px;
-    position: relative;
-    left: 238px;
-    bottom: 39px;
-    cursor: pointer;
+  background-color: #8a7766;
+  width: 150px;
+  padding: 10px 0;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  position: relative;
+  left: 238px;
+  bottom: 39px;
+  cursor: pointer;
 }
 img {
-    position: relative;
-    max-width: 15px;
-    top: 3px;
+  position: relative;
+  max-width: 15px;
+  top: 3px;
 }
 footer {
-    text-align: center;
-    margin-bottom: 200px;
+  text-align: center;
+  margin-bottom: 200px;
 }
 .gridElement-0 {
+  z-index: 2;
 }
 .gridElement-2 {
-    color: #776e65;
-    background-color: #eee4da;
-    z-index: 5;
+  color: #776e65;
+  background-color: #eee4da;
 }
 .gridElement-4 {
-    color: #776e65;
-    background-color: #eee1c9;
+  color: #776e65;
+  background-color: #eee1c9;
 }
 .gridElement-8 {
-    background-color: #f3b27a;
+  background-color: #f3b27a;
 }
 .gridElement-16 {
-    background-color: #f69664;
+  background-color: #f69664;
 }
 .gridElement-32 {
-    background-color: #f77c5f;
+  background-color: #f77c5f;
 }
 .gridElement-64 {
-    background-color: #f75f3b;
+  background-color: #f75f3b;
 }
 .gridElement-128 {
-    background-color: #edd073;
-    font-size: 46px;
-    line-height: 107.5px;
+  background-color: #edd073;
+  font-size: 46px;
+  line-height: 107.5px;
 }
 .gridElement-256 {
-    background-color: #edcc62;
-    font-size: 46px;
-    line-height: 107.5px;
+  background-color: #edcc62;
+  font-size: 46px;
+  line-height: 107.5px;
 }
 .gridElement-512 {
-    background-color: #edc950;
-    font-size: 46px;
-    line-height: 107.5px;
+  background-color: #edc950;
+  font-size: 46px;
+  line-height: 107.5px;
 }
 .gridElement-1024 {
-    background-color: #edc53f;
-    font-size: 36px;
-    line-height: 107.5px;
+  background-color: #edc53f;
+  font-size: 36px;
+  line-height: 107.5px;
 }
 .gridElement-2048 {
-    background-color: #edc22e;
-    font-size: 36px;
-    line-height: 107.5px;
+  background-color: #edc22e;
+  font-size: 36px;
+  line-height: 107.5px;
 }
 .gridElement-higher {
-    background-color: #3c3a33;
-    font-size: 30px;
-    line-height: 107.5px;
+  background-color: #3c3a33;
+  font-size: 30px;
+  line-height: 107.5px;
 }
