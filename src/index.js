@@ -4,7 +4,6 @@ const { reverseGrid, rotate } = require("./rotate.js");
 const addNumber = require("./addNumber.js");
 const listToMatrix = require("./listToMatrix.js");
 const getAnimationsForRow = require("./getAnimationsForRow.js");
-var lodash = require("lodash");
 let mainGrid = [];
 const scoreDisplay = document.getElementById("score");
 const bestScore = document.getElementById("best");
@@ -88,16 +87,16 @@ function initGrid() {
     [0, 0, 0, 0],
   ];
   grid[rand03()][rand03()] = 2;
-  let sum = 0
+  let sum = 0;
   do {
     grid[rand03()][rand03()] = Math.random() > 0.1 ? 2 : 4;
     grid.forEach((row) => {
       row.forEach((e) => {
         if (e !== 0) {
-          sum++
+          sum++;
         }
-      })
-    })
+      });
+    });
   } while (sum === 1);
   return grid;
 }
@@ -114,7 +113,9 @@ newButton.addEventListener("click", (event) => {
   mainGrid = initGrid();
   gridTemplate(mainGrid);
 });
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", play);
+
+function play(event) {
   if (
     !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
   ) {
@@ -126,13 +127,16 @@ document.addEventListener("keydown", function (event) {
   animations.forEach((a) => execAnimations(a));
   if (score > best) {
     best = score;
+    bestScore.innerHTML = best;
   }
-  bestScore.innerHTML = best;
   setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   if (animations.length > 0) {
     setTimeout(addNumber, AFTER_TRANSITION_DURATION);
   }
-});
+  checkWin();
+  checkGameOver();
+}
+
 function extractDataGrid(arrow) {
   let list = document.getElementsByClassName("gridElement");
 
@@ -232,9 +236,24 @@ function checkWin() {
   grid.forEach((row) => {
     row.forEach((e) => {
       if (e.value === 2048) {
-        document.removeEventListener("keydown",      )
-        mainContainer.insertAdjacentHTML("afterend", "<p> you win</p>")
+        document.removeEventListener("keydown", play);
+        console.log("you win")
       }
     });
   });
+}
+
+function checkGameOver() {
+  let grid = extractDataGrid();
+  let checkForAnimations = [];
+  checkForAnimations.push(
+    getAnimations(grid, "ArrowLeft"),
+    getAnimations(grid, "ArrowRight"),
+    getAnimations(grid, "ArrowUp"),
+    getAnimations(grid, "Arrowdown")
+  );
+  if (checkForAnimations.length === 0) {
+    document.removeEventListener("keydown", play);
+    console.log("game over")
+  }
 }
