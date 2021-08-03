@@ -81,6 +81,23 @@ span {
   width: 500px;
   height: 500px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.tRow {
+  z-index: 5;
+  width: 503px;
+  height: 21%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.tile {
+  z-index: 5;
+  width: 107px;
+  height: 107px;
+  background-color: #ccc0b4;
+  border-radius: 3pxS;
 }
 .gridElement {
   position: absolute;
@@ -160,7 +177,7 @@ footer {
   margin-bottom: 200px;
 }
 .gridElement-0 {
-  z-index: 2;
+  display: none;
 }
 .gridElement-2 {
   color: #776e65;

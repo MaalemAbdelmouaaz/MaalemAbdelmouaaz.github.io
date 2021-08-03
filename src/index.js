@@ -8,7 +8,8 @@ let mainGrid = [];
 const scoreDisplay = document.getElementById("score");
 const bestScore = document.getElementById("best");
 let score = 0;
-let best = parseInt(bestScore.innerHTML);
+var highScore = localStorage.getItem('highScore') || 0;
+bestScore.innerHTML = highScore
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
 const TRANSITION_DURATION = 0.3;
@@ -101,7 +102,9 @@ function initGrid() {
   return grid;
 }
 function clearGrid() {
-  document.getElementById("mainContainer").innerHTML = "";
+  let mainContainer = document.getElementById("mainContainer")
+  mainContainer.innerHTML = "";
+  mainContainer.innerHTML += '<div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div>';
 }
 mainGrid = initGrid();
 gridTemplate(mainGrid);
@@ -113,7 +116,7 @@ newButton.addEventListener("click", (event) => {
   mainGrid = initGrid();
   gridTemplate(mainGrid);
 });
-document.addEventListener("keydown", play);
+document.addEventListener("keydown", play)
 
 function play(event) {
   if (
@@ -125,9 +128,10 @@ function play(event) {
   let grid = extractDataGrid(event.key);
   let animations = getAnimations(grid, event.key);
   animations.forEach((a) => execAnimations(a));
-  if (score > best) {
-    best = score;
-    bestScore.innerHTML = best;
+  if (score > highScore) {
+    highScore = score;
+    bestScore.innerHTML = highScore;
+    localStorage.setItem('highScore', highScore);
   }
   setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   if (animations.length > 0) {
