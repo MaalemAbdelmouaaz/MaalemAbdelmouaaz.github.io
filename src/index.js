@@ -45,7 +45,7 @@ function gridElementTemplate(i, j, num) {
   return `<div class="gridElement ${getClass(num)}" ${gridElementStyle(
     i,
     j
-  )} data-i="${i}" data-j="${j}">${num === 0 ? "" : num}</div>`;
+  )} data-i="${i}" data-j="${j}" data-value="${num}">${num === 0 ? "" : num}</div>`;
 }
 function getClass(num) {
   switch (num) {
@@ -214,10 +214,13 @@ function execAnimations(a) {
   elem.setAttribute("data-j", newJ);
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
-  if (elem.innerHTML === swap.innerHTML) {
-    let val = parseInt(elem.innerHTML);
+  let elemValue = parseInt(elem.getAttribute("value"))
+  let swapValue = parseInt(swap.getAttribute("value"))
+  if (elemValue === swapValue) {
     elem.className = `${elem.className} merge`;
+    elem.setAttribute("data-value", elemValue * 2);
     swap.className = `${swap.className} swap`;
+    swap.setAttribute("data-value", 0);
     score += val * 2;
     scoreDisplay.innerHTML = score;
   }
@@ -227,9 +230,8 @@ function merge() {
   let mergeList = document.getElementsByClassName("merge");
   let swapList = document.getElementsByClassName("swap");
   for (let e of mergeList) {
-    let val = parseInt(e.innerHTML) * 2;
-    e.innerHTML = `${val}`;
-    e.className = `gridElement gridElement-${val}`;
+    e.innerHTML = e.getAttribute("data-value");
+    e.className = `gridElement gridElement-${e.getAttribute("data-value")}`;
   }
   for (let e of swapList) {
     e.innerHTML = "";
