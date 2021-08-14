@@ -221,7 +221,7 @@ function execAnimations(a) {
     elem.setAttribute("data-value", elemValue * 2);
     swap.className = `${swap.className} swap`;
     swap.setAttribute("data-value", 0);
-    score += val * 2;
+    score += elemValue * 2;
     scoreDisplay.innerHTML = score;
   }
 }
