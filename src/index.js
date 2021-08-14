@@ -214,8 +214,8 @@ function execAnimations(a) {
   elem.setAttribute("data-j", newJ);
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
-  let elemValue = parseInt(elem.getAttribute("value"))
-  let swapValue = parseInt(swap.getAttribute("value"))
+  let elemValue = parseInt(elem.getAttribute("data-value"))
+  let swapValue = parseInt(swap.getAttribute("data-value"))
   if (elemValue === swapValue) {
     elem.className = `${elem.className} merge`;
     elem.setAttribute("data-value", elemValue * 2);
