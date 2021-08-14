@@ -132,7 +132,6 @@ function play(event) {
   let grid = extractDataGrid(event.key);
   let animations = getAnimations(grid, event.key);
   animations.forEach((a) => execAnimations(a));
-  setTimeout(merge, AFTER_TRANSITION_DURATION)
   if (score > highScore) {
     highScore = score;
     bestScore.innerHTML = highScore;
@@ -217,29 +216,29 @@ function execAnimations(a) {
   swap.setAttribute("data-j", oldJ);
   if (elem.innerHTML === swap.innerHTML) {
     let val = parseInt(elem.innerHTML);
-    let valSwap = parseInt(swap.innerHTML);
-    elem.className = `gridElement gridElement-${val} merge`;
-    swap.className = `gridElement gridElement-${valSwap} swap`;
+    elem.className = `${elem.className} merge`;
+    swap.className = `${swap.className} swap`;
     score += val * 2;
     scoreDisplay.innerHTML = score;
   }
 }
 
 function merge() {
-  let list = document.getElementsByClassName("merge");
-  let listS = document.getElementsByClassName("swap");
-  for (let e of list) {
+  let mergeList = document.getElementsByClassName("merge");
+  let swapList = document.getElementsByClassName("swap");
+  for (let e of mergeList) {
     let val = parseInt(e.innerHTML) * 2;
     e.innerHTML = `${val}`;
     e.className = `gridElement gridElement-${val}`;
   }
-  for (let e of listS) {
+  for (let e of swapList) {
     e.innerHTML = "";
     e.className = "gridElement gridElement-0";
   }
 }
 
 function updateElement() {
+  merge();
   let grid = extractDataGrid();
   grid.forEach((row) => {
     row.forEach((e) => {
