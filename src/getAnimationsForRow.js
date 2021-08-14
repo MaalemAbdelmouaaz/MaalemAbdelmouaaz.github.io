@@ -1,7 +1,6 @@
 function getAnimationsForRow(row, animations, vector) {
   let zerosCount = 0;
   let last = 0;
-  let toDelete = false;
   row.forEach((e) => {
     if (e.value === 0) {
       zerosCount++;

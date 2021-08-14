@@ -8,8 +8,9 @@ let mainGrid = [];
 const scoreDisplay = document.getElementById("score");
 const bestScore = document.getElementById("best");
 let score = 0;
-var highScore = localStorage.getItem('highScore') || 0;
-bestScore.innerHTML = highScore
+let winCondition = true;
+var highScore = localStorage.getItem("highScore") || 0;
+bestScore.innerHTML = highScore;
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
 const TRANSITION_DURATION = 0.3;
@@ -102,9 +103,10 @@ function initGrid() {
   return grid;
 }
 function clearGrid() {
-  let mainContainer = document.getElementById("mainContainer")
+  let mainContainer = document.getElementById("mainContainer");
   mainContainer.innerHTML = "";
-  mainContainer.innerHTML += '<div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div>';
+  mainContainer.innerHTML +=
+    '<div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div><div class="tRow"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div>';
 }
 mainGrid = initGrid();
 gridTemplate(mainGrid);
@@ -112,11 +114,13 @@ let newButton = document.getElementById("newGameButton");
 newButton.addEventListener("click", (event) => {
   clearGrid();
   score = 0;
+  winCondition = true;
   scoreDisplay.innerHTML = 0;
   mainGrid = initGrid();
   gridTemplate(mainGrid);
 });
-document.addEventListener("keydown", play)
+
+document.addEventListener("keydown", play);
 
 function play(event) {
   if (
@@ -128,16 +132,17 @@ function play(event) {
   let grid = extractDataGrid(event.key);
   let animations = getAnimations(grid, event.key);
   animations.forEach((a) => execAnimations(a));
+  setTimeout(merge, AFTER_TRANSITION_DURATION)
   if (score > highScore) {
     highScore = score;
     bestScore.innerHTML = highScore;
-    localStorage.setItem('highScore', highScore);
+    localStorage.setItem("highScore", highScore);
   }
   setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   if (animations.length > 0) {
     setTimeout(addNumber, AFTER_TRANSITION_DURATION);
   }
-  checkWin();
+  // checkWin();
   checkGameOver();
 }
 
@@ -211,13 +216,26 @@ function execAnimations(a) {
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
   if (elem.innerHTML === swap.innerHTML) {
-    let val = parseInt(elem.innerHTML) * 2;
-    elem.innerHTML = `${val}`;
-    elem.className = `gridElement gridElement-${val}`;
-    swap.innerHTML = "";
-    swap.className = "gridElement gridElement-0";
-    score += val;
+    let val = parseInt(elem.innerHTML);
+    let valSwap = parseInt(swap.innerHTML);
+    elem.className = `gridElement gridElement-${val} merge`;
+    swap.className = `gridElement gridElement-${valSwap} swap`;
+    score += val * 2;
     scoreDisplay.innerHTML = score;
+  }
+}
+
+function merge() {
+  let list = document.getElementsByClassName("merge");
+  let listS = document.getElementsByClassName("swap");
+  for (let e of list) {
+    let val = parseInt(e.innerHTML) * 2;
+    e.innerHTML = `${val}`;
+    e.className = `gridElement gridElement-${val}`;
+  }
+  for (let e of listS) {
+    e.innerHTML = "";
+    e.className = "gridElement gridElement-0";
   }
 }
 
@@ -236,28 +254,32 @@ function updateElement() {
 }
 
 function checkWin() {
+  if (!winCondition) {
+    return;
+  }
   let grid = extractDataGrid();
   grid.forEach((row) => {
     row.forEach((e) => {
-      if (e.value === 2048) {
+      if (e.value === 32) {
         document.removeEventListener("keydown", play);
-        console.log("you win")
+        document.getElementById("mainContainer").innerHTML +=
+          '<div id = "win">You win!<div id = "continue">Continue</div></div>';
+        winCondition = false;
       }
+      let Continue = document.getElementById("continue");
+      Continue.addEventListener("click", function (event) {
+        document.getElementById("win").remove();
+        document.addEventListener("keydown", play);
+      });
     });
   });
 }
 
 function checkGameOver() {
   let grid = extractDataGrid();
-  let checkForAnimations = [];
-  checkForAnimations.push(
-    getAnimations(grid, "ArrowLeft"),
-    getAnimations(grid, "ArrowRight"),
-    getAnimations(grid, "ArrowUp"),
-    getAnimations(grid, "Arrowdown")
-  );
+  let checkForAnimations = [2];
+
   if (checkForAnimations.length === 0) {
-    document.removeEventListener("keydown", play);
-    console.log("game over")
+    console.log("game over");
   }
 }
