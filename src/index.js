@@ -45,7 +45,9 @@ function gridElementTemplate(i, j, num) {
   return `<div class="gridElement ${getClass(num)}" ${gridElementStyle(
     i,
     j
-  )} data-i="${i}" data-j="${j}" data-value="${num}">${num === 0 ? "" : num}</div>`;
+  )} data-i="${i}" data-j="${j}" data-value="${num}">${
+    num === 0 ? "" : num
+  }</div>`;
 }
 function getClass(num) {
   switch (num) {
@@ -137,9 +139,8 @@ function play(event) {
     bestScore.innerHTML = highScore;
     localStorage.setItem("highScore", highScore);
   }
-  setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   if (animations.length > 0) {
-    setTimeout(addNumber, AFTER_TRANSITION_DURATION);
+    setTimeout(updateElement, AFTER_TRANSITION_DURATION);
   }
   // checkWin();
   checkGameOver();
@@ -214,8 +215,8 @@ function execAnimations(a) {
   elem.setAttribute("data-j", newJ);
   swap.setAttribute("data-i", oldI);
   swap.setAttribute("data-j", oldJ);
-  let elemValue = parseInt(elem.getAttribute("data-value"))
-  let swapValue = parseInt(swap.getAttribute("data-value"))
+  let elemValue = parseInt(elem.getAttribute("data-value"));
+  let swapValue = parseInt(swap.getAttribute("data-value"));
   if (elemValue === swapValue) {
     elem.className = `${elem.className} merge`;
     elem.setAttribute("data-value", elemValue * 2);
@@ -252,6 +253,7 @@ function updateElement() {
       style.left = `${newL}px`;
     });
   });
+  addNumber();
 }
 
 function checkWin() {
