@@ -1,5 +1,5 @@
 function addNumber() {
-  let zeros = document.getElementsByClassName("gridElement-0");
+  let zeros = document.querySelectorAll('[data-value="0"]');
   let randomZero = [];
   if (zeros.length > 0) {
     randomZero = zeros[Math.floor(Math.random() * zeros.length)];

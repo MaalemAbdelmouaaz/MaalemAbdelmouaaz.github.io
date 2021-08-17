@@ -230,14 +230,14 @@ function execAnimations(a) {
 function merge() {
   let mergeList = document.getElementsByClassName("merge");
   let swapList = document.getElementsByClassName("swap");
-  for (let e of mergeList) {
+  Array.from(mergeList).forEach((e) => {
     e.innerHTML = e.getAttribute("data-value");
     e.className = `gridElement gridElement-${e.getAttribute("data-value")}`;
-  }
-  for (let e of swapList) {
+  });
+  Array.from(swapList).forEach((e) => {
     e.innerHTML = "";
     e.className = "gridElement gridElement-0";
-  }
+  });
 }
 
 function updateElement() {
