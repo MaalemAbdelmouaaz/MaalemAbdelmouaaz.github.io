@@ -8,6 +8,7 @@ let mainGrid = [];
 const scoreDisplay = document.getElementById("score");
 const bestScore = document.getElementById("best");
 let score = 0;
+let moveCondition = false;
 let winCondition = true;
 var highScore = localStorage.getItem("highScore") || 0;
 bestScore.innerHTML = highScore;
@@ -125,12 +126,18 @@ newButton.addEventListener("click", (event) => {
 document.addEventListener("keydown", play);
 
 function play(event) {
+  
   if (
     !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
   ) {
     return;
   }
+  
   event.preventDefault();
+  if (moveCondition) {
+    return;
+  }
+  moveCondition = true;
   let grid = extractDataGrid(event.key);
   let animations = getAnimations(grid, event.key);
   animations.forEach((a) => execAnimations(a));
@@ -139,9 +146,11 @@ function play(event) {
     bestScore.innerHTML = highScore;
     localStorage.setItem("highScore", highScore);
   }
-  if (animations.length > 0) {
-    setTimeout(updateElement, AFTER_TRANSITION_DURATION);
-  }
+
+  setTimeout(function () {
+    updateElement(animations);
+  }, AFTER_TRANSITION_DURATION);
+
   // checkWin();
   checkGameOver();
 }
@@ -240,7 +249,7 @@ function merge() {
   });
 }
 
-function updateElement() {
+function updateElement(animations) {
   merge();
   let grid = extractDataGrid();
   grid.forEach((row) => {
@@ -253,7 +262,10 @@ function updateElement() {
       style.left = `${newL}px`;
     });
   });
-  addNumber();
+  if (animations.length > 0) {
+    addNumber();
+  }
+  moveCondition = false;
 }
 
 function checkWin() {
