@@ -133,6 +133,7 @@ document.addEventListener("keydown", (event) => {
   ) {
     return;
   }
+  event.preventDefault();
   myWorker.postMessage(event.key);
 });
 myWorker.onmessage = (event) => {
@@ -143,12 +144,6 @@ myWorker.onmessage = (event) => {
 
 function play(event) {
   console.log("inside play function ");
-  // event.preventDefault();
-  if (moveCondition) {
-    return;
-  }
-
-  moveCondition = true;
   let add = false;
   let grid = extractDataGrid(event);
   let animations = getAnimations(grid, event);
@@ -165,7 +160,6 @@ function play(event) {
     updateElement(add);
     // checkWin();
     // checkGameOver();
-    moveCondition = false;
   }, AFTER_TRANSITION_DURATION);
 }
 
