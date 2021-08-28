@@ -15,7 +15,7 @@ var highScore = localStorage.getItem("highScore") || 0;
 bestScore.innerHTML = highScore;
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
-const TRANSITION_DURATION = 0.3;
+const TRANSITION_DURATION = 0.15;
 const AFTER_TRANSITION_DURATION = 1 + TRANSITION_DURATION * 1000;
 
 function gridTemplate(logicalGrid) {
@@ -122,8 +122,6 @@ newButton.addEventListener("click", (event) => {
   scoreDisplay.innerHTML = 0;
   mainGrid = initGrid();
   gridTemplate(mainGrid);
-
-  
 });
 
 const myWorker = new Worker("worker.js");
@@ -137,13 +135,14 @@ document.addEventListener("keydown", (event) => {
   myWorker.postMessage(event.key);
 });
 myWorker.onmessage = (event) => {
-  play(event.data)
-}
+  play(event.data);
+};
 
 // document.addEventListener("keydown", play);
 
 function play(event) {
   console.log("inside play function ");
+  myWorker.postMessage(true);
   let add = false;
   let grid = extractDataGrid(event);
   let animations = getAnimations(grid, event);
@@ -158,6 +157,7 @@ function play(event) {
   }
   setTimeout(function () {
     updateElement(add);
+    myWorker.postMessage(false);
     // checkWin();
     // checkGameOver();
   }, AFTER_TRANSITION_DURATION);
