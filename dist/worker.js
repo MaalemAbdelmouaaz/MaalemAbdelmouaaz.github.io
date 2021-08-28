@@ -19,7 +19,11 @@ async function loop() {
       continue;
     }
     let nextEvent = eventList.shift();
-    self.postMessage(nextEvent);
+    self.postMessage({key: nextEvent, time : calcTime(eventList.length)});
   }
 }
 loop();
+
+function calcTime(length) {
+  return 0.3 / length;
+}

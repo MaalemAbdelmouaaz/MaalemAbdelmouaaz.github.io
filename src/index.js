@@ -15,7 +15,7 @@ var highScore = localStorage.getItem("highScore") || 0;
 bestScore.innerHTML = highScore;
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
-const TRANSITION_DURATION = 0.15;
+const TRANSITION_DURATION = 0.09;
 const AFTER_TRANSITION_DURATION = 1 + TRANSITION_DURATION * 1000;
 
 function gridTemplate(logicalGrid) {
@@ -135,18 +135,20 @@ document.addEventListener("keydown", (event) => {
   myWorker.postMessage(event.key);
 });
 myWorker.onmessage = (event) => {
-  play(event.data);
+  let key = event.data.key;
+  let time = event.data.time;
+  play(key, time);
 };
 
 // document.addEventListener("keydown", play);
 
-function play(event) {
+function play(event, time) {
   console.log("inside play function ");
   myWorker.postMessage(true);
   let add = false;
   let grid = extractDataGrid(event);
   let animations = getAnimations(grid, event);
-  animations.forEach((a) => execAnimations(a));
+  animations.forEach((a) => execAnimations(a, time));
   if (score > highScore) {
     highScore = score;
     bestScore.innerHTML = highScore;
@@ -192,7 +194,7 @@ function getAnimations(grid, vector) {
   return animations;
 }
 
-function execAnimations(a) {
+function execAnimations(a, time) {
   if (a.distance === 0) {
     return;
   }
@@ -219,7 +221,7 @@ function execAnimations(a) {
   }
   let elem = a.e.e;
   let style = elem.style;
-  style.transitionDuration = `${TRANSITION_DURATION}s`;
+  style.transitionDuration = `${time}s`;
   style.transform = `translate(${vx * (ELEMENT_SIZE + MARGIN)}px,${
     vy * (ELEMENT_SIZE + MARGIN)
   }px)`;
