@@ -1,3 +1,4 @@
+import { concat } from "lodash";
 import "./StyleSheet.css";
 
 const { reverseGrid, rotate } = require("./rotate.js");
@@ -121,38 +122,51 @@ newButton.addEventListener("click", (event) => {
   scoreDisplay.innerHTML = 0;
   mainGrid = initGrid();
   gridTemplate(mainGrid);
+
+  
 });
 
-document.addEventListener("keydown", play);
-
-function play(event) {
-  
+const myWorker = new Worker("worker.js");
+document.addEventListener("keydown", (event) => {
   if (
     !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
   ) {
     return;
   }
-  
-  event.preventDefault();
+  myWorker.postMessage(event.key);
+});
+myWorker.onmessage = (event) => {
+  play(event.data)
+}
+
+// document.addEventListener("keydown", play);
+
+function play(event) {
+  console.log("inside play function ");
+  // event.preventDefault();
   if (moveCondition) {
     return;
   }
+
   moveCondition = true;
-  let grid = extractDataGrid(event.key);
-  let animations = getAnimations(grid, event.key);
+  let add = false;
+  let grid = extractDataGrid(event);
+  let animations = getAnimations(grid, event);
   animations.forEach((a) => execAnimations(a));
   if (score > highScore) {
     highScore = score;
     bestScore.innerHTML = highScore;
     localStorage.setItem("highScore", highScore);
   }
-
+  if (animations.length > 0) {
+    add = true;
+  }
   setTimeout(function () {
-    updateElement(animations);
+    updateElement(add);
+    // checkWin();
+    // checkGameOver();
+    moveCondition = false;
   }, AFTER_TRANSITION_DURATION);
-
-  // checkWin();
-  checkGameOver();
 }
 
 function extractDataGrid(arrow) {
@@ -249,7 +263,7 @@ function merge() {
   });
 }
 
-function updateElement(animations) {
+function updateElement(add) {
   merge();
   let grid = extractDataGrid();
   grid.forEach((row) => {
@@ -262,10 +276,9 @@ function updateElement(animations) {
       style.left = `${newL}px`;
     });
   });
-  if (animations.length > 0) {
+  if (add) {
     addNumber();
   }
-  moveCondition = false;
 }
 
 function checkWin() {
@@ -275,26 +288,43 @@ function checkWin() {
   let grid = extractDataGrid();
   grid.forEach((row) => {
     row.forEach((e) => {
-      if (e.value === 32) {
+      if (e.value === 2048) {
         document.removeEventListener("keydown", play);
         document.getElementById("mainContainer").innerHTML +=
           '<div id = "win">You win!<div id = "continue">Continue</div></div>';
         winCondition = false;
+        let Continue = document.getElementById("continue");
+        Continue.addEventListener("click", function (event) {
+          document.getElementById("win").remove();
+          document.addEventListener("keydown", play);
+        });
       }
-      let Continue = document.getElementById("continue");
-      Continue.addEventListener("click", function (event) {
-        document.getElementById("win").remove();
-        document.addEventListener("keydown", play);
-      });
     });
   });
 }
 
 function checkGameOver() {
-  let grid = extractDataGrid();
-  let checkForAnimations = [2];
+  let checkForAnimations = 0;
+  let gridLeft = extractDataGrid("ArrowLeft");
+  let gridRight = extractDataGrid("ArrowRight");
+  let gridUp = extractDataGrid("ArrowUp");
+  let gridDown = extractDataGrid("ArrowDown");
+  if (getAnimations(gridLeft, "ArrowLeft").length === 0) {
+    checkForAnimations++;
+  }
+  if (getAnimations(gridRight, "ArrowRight").length === 0) {
+    checkForAnimations++;
+  }
+  if (getAnimations(gridUp, "ArrowUp").length === 0) {
+    checkForAnimations++;
+  }
+  if (getAnimations(gridDown, "ArrowDown").length === 0) {
+    checkForAnimations++;
+  }
 
-  if (checkForAnimations.length === 0) {
-    console.log("game over");
+  if (checkForAnimations === 4) {
+    document.removeEventListener("keydown", play);
+    document.getElementById("mainContainer").innerHTML +=
+      '<div id = "win">Game Over</div>';
   }
 }

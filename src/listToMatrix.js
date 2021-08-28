@@ -1,4 +1,4 @@
-function listToMatrix(list, matrixDimension) {
+function listToMatrix(list) {
     let matrix = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
