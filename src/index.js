@@ -9,14 +9,14 @@ let mainGrid = [];
 const scoreDisplay = document.getElementById("score");
 const bestScore = document.getElementById("best");
 let score = 0;
-let moveCondition = false;
+let gameOverCondition = true;
 let winCondition = true;
 var highScore = localStorage.getItem("highScore") || 0;
 bestScore.innerHTML = highScore;
 const ELEMENT_SIZE = 107;
 const MARGIN = 15;
-const TRANSITION_DURATION = 0.09;
-const AFTER_TRANSITION_DURATION = 1 + TRANSITION_DURATION * 1000;
+// const TRANSITION_DURATION = 0.09;
+// const AFTER_TRANSITION_DURATION = 1 + TRANSITION_DURATION * 1000;
 
 function gridTemplate(logicalGrid) {
   let mainContainer = document.getElementById("mainContainer");
@@ -119,13 +119,17 @@ newButton.addEventListener("click", (event) => {
   clearGrid();
   score = 0;
   winCondition = true;
+  gameOverCondition = true;
   scoreDisplay.innerHTML = 0;
   mainGrid = initGrid();
   gridTemplate(mainGrid);
+  document.addEventListener("keydown", eventsHandler);
 });
 
 const myWorker = new Worker("worker.js");
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", eventsHandler);
+
+function eventsHandler(event) {
   if (
     !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
   ) {
@@ -133,7 +137,7 @@ document.addEventListener("keydown", (event) => {
   }
   event.preventDefault();
   myWorker.postMessage(event.key);
-});
+}
 myWorker.onmessage = (event) => {
   let key = event.data.key;
   let time = event.data.time;
@@ -143,8 +147,11 @@ myWorker.onmessage = (event) => {
 // document.addEventListener("keydown", play);
 
 function play(event, time) {
-  console.log("inside play function ");
   myWorker.postMessage(true);
+  let popList = document.getElementsByClassName("pop");
+  Array.from(popList).forEach((e) => {
+    e.className = `gridElement gridElement-${e.getAttribute("data-value")}`;
+  });
   let add = false;
   let grid = extractDataGrid(event);
   let animations = getAnimations(grid, event);
@@ -160,9 +167,9 @@ function play(event, time) {
   setTimeout(function () {
     updateElement(add);
     myWorker.postMessage(false);
-    // checkWin();
-    // checkGameOver();
-  }, AFTER_TRANSITION_DURATION);
+    checkWin();
+    checkGameOver();
+  }, 1 + time * 1000);
 }
 
 function extractDataGrid(arrow) {
@@ -251,7 +258,7 @@ function merge() {
   let swapList = document.getElementsByClassName("swap");
   Array.from(mergeList).forEach((e) => {
     e.innerHTML = e.getAttribute("data-value");
-    e.className = `gridElement gridElement-${e.getAttribute("data-value")}`;
+    e.className = `gridElement gridElement-${e.getAttribute("data-value")} pop`;
   });
   Array.from(swapList).forEach((e) => {
     e.innerHTML = "";
@@ -284,15 +291,15 @@ function checkWin() {
   let grid = extractDataGrid();
   grid.forEach((row) => {
     row.forEach((e) => {
-      if (e.value === 2048) {
-        document.removeEventListener("keydown", play);
+      if (e.value === 32) {
+        document.removeEventListener("keydown", eventsHandler);
         document.getElementById("mainContainer").innerHTML +=
           '<div id = "win">You win!<div id = "continue">Continue</div></div>';
         winCondition = false;
         let Continue = document.getElementById("continue");
         Continue.addEventListener("click", function (event) {
           document.getElementById("win").remove();
-          document.addEventListener("keydown", play);
+          document.addEventListener("keydown", eventsHandler);
         });
       }
     });
@@ -300,6 +307,9 @@ function checkWin() {
 }
 
 function checkGameOver() {
+  if (!gameOverCondition) {
+    return;
+  }
   let checkForAnimations = 0;
   let gridLeft = extractDataGrid("ArrowLeft");
   let gridRight = extractDataGrid("ArrowRight");
@@ -319,7 +329,8 @@ function checkGameOver() {
   }
 
   if (checkForAnimations === 4) {
-    document.removeEventListener("keydown", play);
+    gameOverCondition = false;
+    document.removeEventListener("keydown", eventsHandler);
     document.getElementById("mainContainer").innerHTML +=
       '<div id = "win">Game Over</div>';
   }

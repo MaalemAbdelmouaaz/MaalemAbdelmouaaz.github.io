@@ -259,6 +259,29 @@ footer {
   border-radius: 3px;
   cursor: pointer;
 }
-.addNumberAnimation {
-  
+
+.add {
+  animation-name: addNum;
+  animation-duration: 150ms;
+}
+@keyframes addNum {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop {
+  animation-name: popNum;
+  animation-duration: 150ms;
+}
+@keyframes popNum {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
