@@ -1,6 +1,6 @@
 html, body {
   user-select: none;
-  overflow: hidden;
+  touch-action: none;
 }
 body {
   background-color: #faf8ef;

@@ -124,6 +124,8 @@ newButton.addEventListener("click", (event) => {
   mainGrid = initGrid();
   gridTemplate(mainGrid);
   document.addEventListener("keydown", eventsHandler);
+  document.addEventListener("touchstart", handleTouchStart, false);
+  document.addEventListener("touchmove", handleTouchMove, false);
 });
 
 const myWorker = new Worker("worker.js");
@@ -145,7 +147,6 @@ function handleTouchStart(evt) {
 }
 
 function handleTouchMove(evt) {
-  evt.preventDefault();
   if (!xDown || !yDown) {
     return;
   }
@@ -378,6 +379,8 @@ function checkGameOver() {
   if (checkForAnimations === 4) {
     gameOverCondition = false;
     document.removeEventListener("keydown", eventsHandler);
+    document.removeEventListener("touchstart", handleTouchStart, false);
+    document.removeEventListener("touchmove", handleTouchMove, false);
     document.getElementById("mainContainer").innerHTML +=
       '<div id = "win">Game Over</div>';
   }
