@@ -145,6 +145,7 @@ function handleTouchStart(evt) {
 }
 
 function handleTouchMove(evt) {
+  evt.preventDefault();
   if (!xDown || !yDown) {
     return;
   }
@@ -154,21 +155,20 @@ function handleTouchMove(evt) {
 
   var xDiff = xDown - xUp;
   var yDiff = yDown - yUp;
-  let event = {};
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
-    if (xDiff > 0) {
-      event.key = "ArrowRight";
+    if (xDiff < 0) {
+      evt.key = "ArrowRight";
     } else {
-      event.key = "ArrowLeft";
+      evt.key = "ArrowLeft";
     }
   } else {
-    if (yDiff > 0) {
-      event.key = "ArrowDown";
+    if (yDiff < 0) {
+      evt.key = "ArrowDown";
     } else {
-      event.key = "ArrowUp";
+      evt.key = "ArrowUp";
     }
   }
-  eventsHandler(event);
+  eventsHandler(evt);
   xDown = null;
   yDown = null;
 }
@@ -336,6 +336,8 @@ function checkWin() {
     row.forEach((e) => {
       if (e.value === 32) {
         document.removeEventListener("keydown", eventsHandler);
+        document.removeEventListener("touchstart", handleTouchStart, false);
+        document.removeEventListener("touchmove", handleTouchMove, false);
         document.getElementById("mainContainer").innerHTML +=
           '<div id = "win">You win!<div id = "continue">Continue</div></div>';
         winCondition = false;
@@ -343,6 +345,8 @@ function checkWin() {
         Continue.addEventListener("click", function (event) {
           document.getElementById("win").remove();
           document.addEventListener("keydown", eventsHandler);
+          document.addEventListener("touchstart", handleTouchStart, false);
+          document.addEventListener("touchmove", handleTouchMove, false);
         });
       }
     });
