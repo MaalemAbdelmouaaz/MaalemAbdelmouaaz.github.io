@@ -335,7 +335,7 @@ function checkWin() {
   let grid = extractDataGrid();
   grid.forEach((row) => {
     row.forEach((e) => {
-      if (e.value === 32) {
+      if (e.value === 2048) {
         document.removeEventListener("keydown", eventsHandler);
         document.removeEventListener("touchstart", handleTouchStart, false);
         document.removeEventListener("touchmove", handleTouchMove, false);

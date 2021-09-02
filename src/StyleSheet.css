@@ -1,6 +1,8 @@
-html, body {
+html,
+body {
   user-select: none;
   touch-action: none;
+  position : absolute;
 }
 body {
   background-color: #faf8ef;
@@ -10,7 +12,8 @@ body {
 }
 #pageWrap {
   width: 500px;
-  margin: 0 auto;
+  margin-left: 420px;
+  margin-right: auto;
 }
 #header-container {
   display: flex;
@@ -101,7 +104,7 @@ span {
   width: 107px;
   height: 107px;
   background-color: #ccc0b4;
-  border-radius: 3pxS;
+  border-radius: 3pxs;
 }
 .gridElement {
   position: absolute;
@@ -111,6 +114,9 @@ span {
   background-color: #ccc0b4;
   border-radius: 3px;
   z-index: 5;
+}
+.gridElement > * {
+  position: relative;
 }
 a:link {
   color: #7a6f6c;
