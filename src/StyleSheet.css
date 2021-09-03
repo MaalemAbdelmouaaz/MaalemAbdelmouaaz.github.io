@@ -2,7 +2,6 @@ html,
 body {
   user-select: none;
   touch-action: none;
-  position : absolute;
 }
 body {
   background-color: #faf8ef;
@@ -85,8 +84,8 @@ span {
   font-size: 55px;
   font-weight: bolder;
   line-height: 1.8;
-  width: 500px;
-  height: 500px;
+  width: 504px;
+  height: 504px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -97,14 +96,14 @@ span {
   width: 503px;
   height: 21%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content:space-evenly;
 }
 .tile {
   z-index: 5;
-  width: 107px;
-  height: 107px;
+  width: 106px;
+  height: 106px;
   background-color: #ccc0b4;
-  border-radius: 3pxs;
+  border-radius: 3px;
 }
 .gridElement {
   position: absolute;
@@ -115,9 +114,7 @@ span {
   border-radius: 3px;
   z-index: 5;
 }
-.gridElement > * {
-  position: relative;
-}
+
 a:link {
   color: #7a6f6c;
   font-weight: bolder;
@@ -242,8 +239,8 @@ footer {
 
 #win {
   z-index: 10;
-  width: 500px;
-  height: 500px;
+  width: 505px;
+  height: 503px;
   background: rgba(200, 54, 54, 0.5);
   font-size: 62px;
   line-height: 500px;
