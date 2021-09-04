@@ -132,7 +132,7 @@ const myWorker = new Worker("worker.js");
 document.addEventListener("keydown", eventsHandler);
 document.addEventListener("touchstart", handleTouchStart, false);
 document.addEventListener("touchmove", handleTouchMove, false);
-
+window.addEventListener("resize", updateMargin);
 var xDown = null;
 var yDown = null;
 
@@ -328,6 +328,19 @@ function updateElement(add) {
   }
 }
 
+function updateMargin() {
+  let grid = extractDataGrid();
+  grid.forEach((row) => {
+    row.forEach((e) => {
+      const [newT, newL] = calcStyleCoords(e.i, e.j);
+      let style = e.e.style;
+      style.transitionDuration = "0s";
+      style.transform = "";
+      style.top = `${newT}px`;
+      style.left = `${newL}px`;
+    });
+  });
+}
 function checkWin() {
   if (!winCondition) {
     return;

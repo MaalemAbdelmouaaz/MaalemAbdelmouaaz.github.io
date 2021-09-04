@@ -11,7 +11,7 @@ body {
 }
 #pageWrap {
   width: 500px;
-  margin-left: 420px;
+  margin-left: auto;
   margin-right: auto;
 }
 #header-container {
